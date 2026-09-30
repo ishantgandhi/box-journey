@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { container, eyebrow, mono } from "@/lib/styles";
 
 const panels = {
   "3pl": {
     label: "For 3PLs",
+    shot: { src: "/screenshots/order-view.png", w: 2048, h: 1551, label: "Order view", alt: "RetailReady order screen showing packing progress, SKUs and packed cartons" },
     heading: "Streamline Your Operations",
     blurb: "Our user-friendly mobile application ensures operational shipping compliance to retailers. It turns routing guides into step-by-step tasks and keeps a visual repository of every order for dispute resolution.",
     cards: [
@@ -17,6 +19,7 @@ const panels = {
   },
   brands: {
     label: "For Brands",
+    shot: { src: "/screenshots/chargeback-analytics.png", w: 2048, h: 1437, label: "Chargeback analytics", alt: "RetailReady chargeback analytics dashboard with totals, amount won back and at-fault breakdown" },
     heading: "See how your orders are packed",
     blurb: "Our dashboard offers insights into your or your 3PL's operations, allowing you to upload chargebacks. That data tailors your packing process with extra validation checks.",
     cards: [
@@ -28,6 +31,7 @@ const panels = {
   },
   retailers: {
     label: "For Retailers",
+    shot: { src: "/screenshots/compliance-form.png", w: 2048, h: 1381, label: "Compliance form", alt: "RetailReady compliance form where receiving teams select vendor compliance errors" },
     heading: "Catch vendor errors at the dock",
     blurb: "Our retailer mobile app automatically detects and records shipping compliance errors from vendors, speeding up revenue generation and increasing labor efficiency.",
     cards: [
@@ -40,6 +44,7 @@ const panels = {
 };
 
 type Key = keyof typeof panels;
+const keys = Object.keys(panels) as Key[];
 
 export function Stakeholders() {
   const [tab, setTab] = useState<Key>("3pl");
@@ -53,7 +58,7 @@ export function Stakeholders() {
           <h2 style={{ margin: 0, fontSize: "clamp(36px, 6vw, 52px)", lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em" }}>Value for every stakeholder</h2>
         </div>
         <div role="tablist" aria-label="Stakeholder" style={{ display: "flex", flexWrap: "wrap", gap: 4, padding: 4, borderRadius: 12, background: "var(--line)", ...mono, fontSize: 13 }}>
-          {(Object.keys(panels) as Key[]).map((key) => {
+          {keys.map((key) => {
             const sel = key === tab;
             return (
               <button
@@ -73,21 +78,49 @@ export function Stakeholders() {
         </div>
       </div>
 
-      <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} style={{ display: "flex", flexDirection: "column", gap: 40 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(420px, 100%), 1fr))", gap: "16px 64px", alignItems: "end" }}>
-          <span style={{ fontSize: 30, lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.025em" }}>{panel.heading}</span>
-          <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: "var(--body)", textWrap: "pretty" }}>{panel.blurb}</p>
+      <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="grid gap-10 min-[900px]:grid-cols-[2fr_3fr] min-[900px]:gap-12" style={{ alignItems: "start" }}>
+        <div style={{ position: "relative", padding: 20, borderRadius: 24, background: "var(--line)", overflow: "hidden" }}>
+          <span key={tab} className="fade-up" style={{ display: "block", marginBottom: 14, ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" }}>
+            {panel.shot.label}
+          </span>
+          {/* All three stay mounted so they load up front and crossfade without a flash */}
+          <div style={{ position: "relative", aspectRatio: "16 / 10", borderRadius: 12, border: "1px solid var(--grid)", overflow: "hidden", background: "#FFFFFF", boxShadow: "0 20px 50px rgba(20,20,20,0.10)" }}>
+            {keys.map((key) => {
+              const active = key === tab;
+              return (
+                <Image
+                  key={key}
+                  src={panels[key].shot.src}
+                  alt={active ? panels[key].shot.alt : ""}
+                  aria-hidden={!active}
+                  width={panels[key].shot.w}
+                  height={panels[key].shot.h}
+                  sizes="(min-width: 1200px) 690px, (min-width: 900px) 58vw, 100vw"
+                  className="transition-[opacity,transform] duration-[250ms] ease-out motion-reduce:transition-none"
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", opacity: active ? 1 : 0, transform: active ? "none" : "translateY(8px)" }}
+                />
+              );
+            })}
+          </div>
+          <div aria-hidden="true" style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "30%", background: "linear-gradient(to bottom, rgba(236,232,226,0), var(--line))", pointerEvents: "none" }} />
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(250px, 100%), 1fr))", gap: 12 }}>
-          {panel.cards.map((k) => (
-            <div key={k.t} style={{ display: "flex", flexDirection: "column", gap: 40, padding: 24, borderRadius: 18, background: "#FFFFFF", border: "1px solid var(--border)" }}>
-              <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{k.i}</span>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <span style={{ fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em" }}>{k.t}</span>
-                <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--body)" }}>{k.d}</span>
+
+        <div key={tab} className="fade-up min-[900px]:order-first" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <span style={{ fontSize: 30, lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.025em" }}>{panel.heading}</span>
+            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: "var(--body)", textWrap: "pretty" }}>{panel.blurb}</p>
+          </div>
+          <div className="grid gap-3 min-[900px]:grid-cols-2">
+            {panel.cards.map((k) => (
+              <div key={k.t} style={{ display: "flex", flexDirection: "column", gap: 28, padding: 20, borderRadius: 18, background: "#FFFFFF", border: "1px solid var(--border)" }}>
+                <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{k.i}</span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <span style={{ fontSize: 18, fontWeight: 500, letterSpacing: "-0.02em" }}>{k.t}</span>
+                  <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--body)" }}>{k.d}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

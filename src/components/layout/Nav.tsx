@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/illustrations/Logo";
-import { CAL_URL, LOGIN_URL, container, mono } from "@/lib/styles";
+import { CAL_URL, container, mono } from "@/lib/styles";
 
 const menus = [
   {
@@ -135,9 +135,6 @@ export function Nav() {
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <a href={LOGIN_URL} className="hidden min-[900px]:inline-flex text-[#5E5A54] hover:text-[#141414]" style={{ alignItems: "center", height: 44, padding: "0 12px", fontSize: 15, textDecoration: "none" }}>
-            Log in
-          </a>
           <a href={CAL_URL} className="px-3 text-[13px] max-[400px]:text-xs min-[900px]:px-[18px]" style={cta}>Try our platform</a>
           <button
             type="button"
@@ -168,9 +165,6 @@ export function Nav() {
                 ))}
               </div>
             ))}
-            <a href={LOGIN_URL} style={{ paddingTop: 16, borderTop: "1px solid var(--grid)", fontSize: 18, textDecoration: "none" }}>
-              Log in
-            </a>
           </nav>
         </div>
       )}

@@ -44,3 +44,8 @@ body {
 @keyframes rrout { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-8px); } }
 .rr-in { animation: rrpop 220ms ease-out both; transform-origin: 50% 90%; }
 .rr-out { animation: rrout 450ms ease-in both; transform-origin: 50% 90%; }
+
+/* Stakeholder tab content swap */
+@keyframes fadeup { from { opacity: 0; transform: translateY(8px); } }
+.fade-up { animation: fadeup 250ms ease-out both; }
+@media (prefers-reduced-motion: reduce) { .fade-up { animation: none; } }

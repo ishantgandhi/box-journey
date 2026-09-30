@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 
 export const CAL_URL = "https://cal.com/team/retailready/retailready-intro-meeting";
-export const LOGIN_URL = "https://3pl.retailreadyai.com/login";
 
 export const mono: CSSProperties = { fontFamily: "var(--font-mono)" };
 
