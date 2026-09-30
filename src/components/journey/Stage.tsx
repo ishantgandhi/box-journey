@@ -61,10 +61,13 @@ export function Stage({ step, reduced }: Props) {
       const onPallet = step === 4;
 
       // Main box: drops in on the first step, slides onto the pallet on the last
-      const boxPose = step < 0 ? { x: 0, y: -180, scale: 1, opacity: 0 } : onPallet ? { ...ON_PALLET, opacity: 1 } : { x: 0, y: 0, scale: 1, opacity: 1 };
+      // Tweened as a raw matrix so scaling is always about the group's own 0,0
+      const mat = ({ x, y, scale }: { x: number; y: number; scale: number }) => ({ transform: `matrix(${scale},0,0,${scale},${x},${y})` });
+      const dropped = mat({ x: 0, y: -180, scale: 1 });
+      const standing = mat({ x: 0, y: 0, scale: 1 });
       if (!calm && from < 0 && step >= 0 && !onPallet) {
-        t.fromTo(".st-main", { x: 0, y: -180, scale: 1, opacity: 0, svgOrigin: "0 0" }, { x: 0, y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, 0);
-      } else put(".st-main", { ...boxPose, svgOrigin: "0 0" });
+        t.fromTo(".st-main", { attr: dropped, opacity: 0 }, { attr: standing, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }, 0);
+      } else put(".st-main", { attr: step < 0 ? dropped : onPallet ? mat(ON_PALLET) : standing, opacity: step < 0 ? 0 : 1 });
       put(".st-shadow", { opacity: step >= 0 && !onPallet ? 1 : 0 });
 
       // Rule tags pop in one by one, then each gets its check

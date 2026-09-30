@@ -91,7 +91,7 @@ body {
 @media (min-width: 1024px) and (min-height: 640px) {
   .how-grid { height: calc(100svh - 64px); }
   .how-stage { position: relative; top: auto; align-self: stretch; height: auto; }
-  .how-step-btn { padding: 16px 0 !important; }
+  .how-step-btn { padding: 14px 0 !important; }
   .how-desc { grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s ease, opacity 0.3s ease; }
   [aria-current="step"] .how-desc { grid-template-rows: 1fr; opacity: 1; }
 }
