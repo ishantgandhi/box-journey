@@ -145,4 +145,4 @@ export const RETAILERS: Retailer[] = [
   { name: "Zola" },
 ];
 
-export const TOTAL_FLOWS = 139;
+export const TOTAL_FLOWS = "130+";

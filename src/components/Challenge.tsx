@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { useRef } from "react";
+import { Reveal, playOnceInView, useMotion } from "@/lib/motion";
 import { Stat } from "@/components/Stat";
 import { container, eyebrow, h2Size, mono, padY, statSize } from "@/lib/styles";
 
@@ -29,29 +31,27 @@ const row = { display: "flex", gap: 12, padding: "clamp(12px, 2vh, 18px) 0", bor
 const icon = { flexShrink: 0, marginTop: "calc((1.5em - 16px) / 2)" };
 
 export function Challenge() {
-  // Right-column rows animate in once, the first time the comparison scrolls into view
-  const withCol = useRef<HTMLDivElement>(null);
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && (setSeen(true), io.disconnect()), { threshold: 0.3 });
-    io.observe(withCol.current!);
-    return () => io.disconnect();
-  }, []);
+  // Problems first, then the fixes 200ms after, so you read the problem before the fix
+  const cmp = useRef<HTMLDivElement>(null);
+  useMotion(() => {
+    const row = { opacity: 0, y: 8, duration: 0.4, ease: "power2.out", stagger: 0.06 };
+    playOnceInView(cmp.current!, gsap.timeline().from(".cmp-without li", row).from(".cmp-with li", row, ">0.2"));
+  }, cmp);
 
   return (
     <section id="challenge" style={{ scrollMarginTop: 64 }}>
       <div style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(24px, 6vh, 56px)" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
+        <Reveal style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
           <span style={eyebrow}>02 / The challenge</span>
           <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em", textWrap: "balance" }}>The Challenge of Retail Compliance</h2>
-        </div>
+        </Reveal>
         <div style={{ ...grid(240), gap: 32 }}>
           {problems.map(([v, l]) => <Stat key={l} value={v} label={l} size={statSize} />)}
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 4.4vh, 40px)", padding: "clamp(24px, 4vh, 40px)", borderRadius: 24, background: "#FFFFFF", border: "1px solid var(--border)" }}>
           <span style={eyebrow}>How RetailReady solves it</span>
-          <div className="grid md:grid-cols-2">
-            <div className="pb-6 md:pr-8 md:pb-0">
+          <div ref={cmp} className="grid md:grid-cols-2">
+            <div className="cmp-without pb-6 md:pr-8 md:pb-0">
               <span style={{ ...colHead, color: "var(--muted)" }}>Without RetailReady</span>
               <ul style={{ listStyle: "none", margin: "12px 0 0", padding: 0 }}>
                 {without.map((t) => (
@@ -65,15 +65,11 @@ export function Challenge() {
                 ))}
               </ul>
             </div>
-            <div ref={withCol} className="border-t border-[#E6E2DC] pt-6 md:border-t-0 md:border-l md:pt-0 md:pl-8">
+            <div className="cmp-with border-t border-[#E6E2DC] pt-6 md:border-t-0 md:border-l md:pt-0 md:pl-8">
               <span style={{ ...colHead, color: "#141414" }}>With RetailReady</span>
               <ul style={{ listStyle: "none", margin: "12px 0 0", padding: 0 }}>
-                {withRR.map((t, i) => (
-                  <li
-                    key={t}
-                    className="transition-[opacity,transform] duration-500 ease-out motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:transition-none"
-                    style={{ ...row, color: "#141414", fontWeight: 500, opacity: seen ? 1 : 0, transform: seen ? "none" : "translateY(8px)", transitionDelay: `${i * 60}ms` }}
-                  >
+                {withRR.map((t) => (
+                  <li key={t} style={{ ...row, color: "#141414", fontWeight: 500 }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={icon}>
                       <path d="M3 8.5l3 3 7-7" stroke="#141414" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

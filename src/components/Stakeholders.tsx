@@ -1,7 +1,10 @@
 "use client";
 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Reveal, useMotion } from "@/lib/motion";
 import { container, eyebrow, h2Size, mono, padY } from "@/lib/styles";
 
 const panels = {
@@ -44,20 +47,60 @@ const panels = {
 };
 
 type Key = keyof typeof panels;
+const PILL_BASE = 100;
 const keys = Object.keys(panels) as Key[];
 
 export function Stakeholders() {
   const [tab, setTab] = useState<Key>("3pl");
   const panel = panels[tab];
 
+  // Black pill that slides between tabs. It has a fixed base width and is scaled to each tab,
+  // so only its transform animates.
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const pill = useRef<HTMLSpanElement>(null);
+  const [pillReady, setPillReady] = useState(false);
+  const placePill = (animate: boolean) => {
+    const btn = tabsRef.current?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if (!btn || !pill.current) return;
+    const vars = { x: btn.offsetLeft, y: btn.offsetTop, scaleX: btn.offsetWidth / PILL_BASE, transformOrigin: "left" };
+    const still = !animate || matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (still) gsap.set(pill.current, vars);
+    else gsap.to(pill.current, { ...vars, duration: 0.25, ease: "power2.out" });
+  };
+  useGSAP(
+    () => {
+      placePill(pillReady);
+      setPillReady(true);
+    },
+    { dependencies: [tab] },
+  );
+  useEffect(() => {
+    const onResize = () => placePill(false);
+    addEventListener("resize", onResize);
+    return () => removeEventListener("resize", onResize);
+  });
+
+  // Cards restagger in when the tab changes (not on first render)
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const firstPanel = useRef(true);
+  useMotion(
+    () => {
+      if (firstPanel.current) return void (firstPanel.current = false);
+      gsap.from(cardsRef.current!.children, { opacity: 0, y: 8, duration: 0.3, stagger: 0.05, ease: "power2.out" });
+    },
+    cardsRef,
+    [tab],
+  );
+
   return (
     <section id="stakeholders" className="screen" style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(20px, 4vh, 40px)" }}>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 24 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <Reveal style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <span style={eyebrow}>04 / Who it&apos;s for</span>
           <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em" }}>Value for every stakeholder</h2>
-        </div>
-        <div role="tablist" aria-label="Stakeholder" style={{ display: "flex", flexWrap: "wrap", gap: 4, padding: 4, borderRadius: 12, background: "var(--line)", ...mono, fontSize: 13 }}>
+        </Reveal>
+        <div ref={tabsRef} role="tablist" aria-label="Stakeholder" style={{ position: "relative", display: "flex", flexWrap: "wrap", gap: 4, padding: 4, borderRadius: 12, background: "var(--line)", ...mono, fontSize: 13 }}>
+          <span ref={pill} aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, width: PILL_BASE, height: 44, borderRadius: 9, background: "#141414", opacity: pillReady ? 1 : 0 }} />
           {keys.map((key) => {
             const sel = key === tab;
             return (
@@ -69,7 +112,7 @@ export function Stakeholders() {
                 aria-selected={sel}
                 aria-controls="stakeholder-panel"
                 onClick={() => setTab(key)}
-                style={{ minHeight: 44, padding: "0 18px", border: 0, borderRadius: 9, background: sel ? "#141414" : "transparent", color: sel ? "#FFFFFF" : "#141414", fontFamily: "inherit", fontSize: "inherit", cursor: "pointer" }}
+                style={{ position: "relative", minHeight: 44, padding: "0 18px", border: 0, borderRadius: 9, background: sel && !pillReady ? "#141414" : "transparent", color: sel ? "#FFFFFF" : "#141414", transition: "color 250ms, transform 120ms", fontFamily: "inherit", fontSize: "inherit", cursor: "pointer" }}
               >
                 {panels[key].label}
               </button>
@@ -110,7 +153,7 @@ export function Stakeholders() {
             <span style={{ fontSize: "clamp(22px, 4vh, 30px)", lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.025em" }}>{panel.heading}</span>
             <p style={{ margin: 0, fontSize: "clamp(15px, 2.4vh, 17px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>{panel.blurb}</p>
           </div>
-          <div className="grid gap-3 min-[900px]:grid-cols-2">
+          <div ref={cardsRef} className="grid gap-3 min-[900px]:grid-cols-2">
             {panel.cards.map((k) => (
               <div key={k.t} style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 1.2vh, 28px)", padding: "clamp(14px, 2.2vh, 20px)", borderRadius: 18, background: "#FFFFFF", border: "1px solid var(--border)" }}>
                 <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{k.i}</span>

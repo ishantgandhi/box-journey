@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { RETAILERS, TOTAL_FLOWS } from "@/data/retailers";
 import { matchRetailer } from "@/lib/matchRetailer";
+import { CountUp, Reveal, playOnceInView, useMotion } from "@/lib/motion";
+import gsap from "gsap";
 import { CAL_URL, container, eyebrow, h2Size, mono, padY } from "@/lib/styles";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
@@ -92,6 +94,12 @@ export function RetailFlows() {
     return () => window.removeEventListener(SHOW_ALL_EVENT, openAll);
   }, []);
 
+  // Cards rise in 40ms apart the first time the grid scrolls into view
+  const cardGrid = useRef<HTMLDivElement>(null);
+  useMotion(() => {
+    playOnceInView(cardGrid.current!, gsap.from(cardGrid.current!.children, { opacity: 0, y: 12, duration: 0.3, stagger: 0.04, ease: "power2.out", clearProps: "transform,opacity" }));
+  }, cardGrid);
+
   const visible = RETAILERS.filter((r) => shown.includes(r.name) || leaving.includes(r.name));
   const noResults = searching && matches.length === 0;
 
@@ -100,11 +108,13 @@ export function RetailFlows() {
       <div style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(16px, 3vh, 44px)" }}>
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:gap-16" style={{ alignItems: "end" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
-            <span style={darkEyebrow}>01 / Retail flows</span>
-            <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.045em" }}>Compliant shipping made easy</h2>
-            <p style={{ margin: 0, fontSize: "clamp(16px, 2.6vh, 19px)", lineHeight: 1.5, color: "var(--dark-muted)", textWrap: "pretty" }}>
-              Check out the retail flows we&apos;ve built to ensure compliant and efficient shipping.
-            </p>
+            <Reveal style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
+              <span style={darkEyebrow}>01 / Retail flows</span>
+              <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.045em" }}>Compliant shipping made easy</h2>
+              <p style={{ margin: 0, fontSize: "clamp(16px, 2.6vh, 19px)", lineHeight: 1.5, color: "var(--dark-muted)", textWrap: "pretty" }}>
+                Check out the retail flows we&apos;ve built to ensure compliant and efficient shipping.
+              </p>
+            </Reveal>
             <form role="search" onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 560, marginTop: "clamp(0px, 1vh, 12px)" }}>
               <label htmlFor="rr-search" style={darkEyebrow}>Find your retailer</label>
               <div style={{ display: "flex", gap: 8 }}>
@@ -144,13 +154,13 @@ export function RetailFlows() {
             </form>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", textAlign: "right", gap: 4 }}>
-            <span style={{ fontSize: "clamp(80px, min(10vw, 17vh), 148px)", lineHeight: 0.9, fontWeight: 500, letterSpacing: "-0.06em" }}>{TOTAL_FLOWS}</span>
+            <CountUp value={String(TOTAL_FLOWS)} duration={1.8} style={{ fontSize: "clamp(80px, min(10vw, 17vh), 148px)", lineHeight: 0.9, fontWeight: 500, letterSpacing: "-0.06em" }} />
             <span style={darkEyebrow}>Retail flows and counting</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-3 lg:grid-cols-4">
-          {visible.map(({ name }) => {
+        <div ref={cardGrid} className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-3 lg:grid-cols-4">
+          {visible.map(({ name }, i) => {
             const out = !shown.includes(name);
             return (
               <a
@@ -158,19 +168,19 @@ export function RetailFlows() {
                 href="#"
                 aria-hidden={out || undefined}
                 tabIndex={out ? -1 : undefined}
-                className={out ? "card-out" : "card-in"}
+                className={`flow-card ${out ? "card-out" : "card-in"}`}
                 style={{ ...tile, border: "1px solid #2E2E2C", background: "#1F1F1E", color: "var(--background)" }}
               >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
                   <span style={tileTitle}>
                     <Highlighted name={name} range={searching ? matchRetailer(name, query) : null} />
                   </span>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                  <svg className="flow-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                     <path d="M5 13L13 5M6.5 5H13v6.5" stroke="#A8A49D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
                 <span style={{ ...tileFoot, display: "flex", alignItems: "center", gap: 8, color: "var(--dark-muted)" }}>
-                  <span style={{ width: 7, height: 7, borderRadius: 999, background: "#5FD08A" }} />
+                  <span className="live-dot" style={{ width: 7, height: 7, borderRadius: 999, background: "#5FD08A", animationDelay: `${-i * 0.37}s` }} />
                   Flow live
                 </span>
               </a>
@@ -181,7 +191,7 @@ export function RetailFlows() {
               <span style={{ ...tileTitle, textWrap: "pretty" }}>
                 No featured flow for &ldquo;{query.trim()}&rdquo; yet. We may already cover them, ask us about it.
               </span>
-              <a href={CAL_URL} style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", minHeight: 44, padding: "0 18px", borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 13, textDecoration: "none" }}>
+              <a href={CAL_URL} className="btn" style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", minHeight: 44, padding: "0 18px", borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 13, textDecoration: "none" }}>
                 Try our platform
               </a>
             </div>

@@ -48,7 +48,7 @@ export function Nav() {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -77,11 +77,11 @@ export function Nav() {
         position: "sticky",
         top: 0,
         zIndex: 50,
-        background: "rgba(246, 244, 241, 0.85)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        borderBottom: `1px solid ${scrolled || mobileOpen ? "var(--grid)" : "transparent"}`,
-        transition: "border-color 200ms",
+        // Transparent at the top; frosted with a border once scrolled past 40px
+        ...(scrolled || mobileOpen
+          ? { background: "rgba(246, 244, 241, 0.85)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderBottom: "1px solid var(--grid)" }
+          : { background: "rgba(246, 244, 241, 0)", backdropFilter: "blur(0px)", WebkitBackdropFilter: "blur(0px)", borderBottom: "1px solid transparent" }),
+        transition: "background-color 200ms, border-color 200ms, backdrop-filter 200ms, -webkit-backdrop-filter 200ms",
       }}
     >
       <div className="gap-3 px-4 min-[900px]:gap-6 min-[900px]:px-6" style={{ ...container, height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -135,7 +135,7 @@ export function Nav() {
         </nav>
 
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <a href={CAL_URL} className="px-3 text-[13px] max-[400px]:text-xs min-[900px]:px-[18px]" style={cta}>Try our platform</a>
+          <a href={CAL_URL} className="btn px-3 text-[13px] max-[400px]:text-xs min-[900px]:px-[18px]" style={cta}>Try our platform</a>
           <button
             type="button"
             className="flex min-[900px]:hidden"

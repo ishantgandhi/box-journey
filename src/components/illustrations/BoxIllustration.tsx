@@ -9,6 +9,9 @@ import { gridBg, mono } from "@/lib/styles";
 
 gsap.registerPlugin(useGSAP);
 
+/** Fired on window when the load timeline lands the label (BrandStrip follows it) */
+export const HERO_LOADED = "hero:loaded";
+
 const cardLabel: CSSProperties = { ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" };
 const card: CSSProperties = {
   position: "absolute",
@@ -46,6 +49,7 @@ export function BoxIllustration() {
           .to(".hb-label", { opacity: 1, duration: 0.25 }, ">")
           .to(".hb-label", { x: 0, y: 0, rotation: 0, duration: 0.65, ease: "power3.inOut" }, ">0.2")
           .addLabel("landed")
+          .call(() => window.dispatchEvent(new Event(HERO_LOADED)), undefined, "landed")
           .fromTo(".hb-label", { scale: 1.04 }, { scale: 1, duration: 0.25, ease: "back.out(2)", immediateRender: false }, "landed")
           .to(".hb-guide", { opacity: 0, duration: 0.25 }, "landed")
           .fromTo(".hb-check", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)", transformOrigin: "50% 50%" }, "landed+=0.2")
@@ -64,7 +68,7 @@ export function BoxIllustration() {
       <div aria-hidden="true" style={gridBg(25, 70)} />
       <div className="hb-card hb-hide flex max-sm:hidden" style={{ ...card, left: 0, top: "3%", transform: "rotate(-3deg)", gap: 6, padding: "14px 18px" }}>
         <span style={cardLabel}>Walmart&apos;s routing guide</span>
-        <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.03em" }}>399 pages</span>
+        <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.03em" }}>300+ pages</span>
         <span style={cardLabel}>Read for you</span>
       </div>
 
