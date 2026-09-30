@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { container, eyebrow, mono } from "@/lib/styles";
+import { container, eyebrow, h2Size, mono, padY } from "@/lib/styles";
 
 const panels = {
   "3pl": {
@@ -51,11 +51,11 @@ export function Stakeholders() {
   const panel = panels[tab];
 
   return (
-    <section id="stakeholders" style={{ ...container, padding: "112px 24px 64px", display: "flex", flexDirection: "column", gap: 40 }}>
+    <section id="stakeholders" className="screen" style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(20px, 4vh, 40px)" }}>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 24 }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <span style={eyebrow}>04 / Who it&apos;s for</span>
-          <h2 style={{ margin: 0, fontSize: "clamp(36px, 6vw, 52px)", lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em" }}>Value for every stakeholder</h2>
+          <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em" }}>Value for every stakeholder</h2>
         </div>
         <div role="tablist" aria-label="Stakeholder" style={{ display: "flex", flexWrap: "wrap", gap: 4, padding: 4, borderRadius: 12, background: "var(--line)", ...mono, fontSize: 13 }}>
           {keys.map((key) => {
@@ -78,8 +78,8 @@ export function Stakeholders() {
         </div>
       </div>
 
-      <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="grid gap-10 min-[900px]:grid-cols-[2fr_3fr] min-[900px]:gap-12" style={{ alignItems: "start" }}>
-        <div style={{ position: "relative", padding: 20, borderRadius: 24, background: "var(--line)", overflow: "hidden" }}>
+      <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="grid gap-10 min-[900px]:grid-cols-2 min-[900px]:gap-12" style={{ alignItems: "start" }}>
+        <div style={{ position: "relative", width: "min(100%, calc((58vh - 68px) * 1.6 + 40px))", maxHeight: "70vh", justifySelf: "end", padding: 20, borderRadius: 24, background: "var(--line)", overflow: "hidden" }}>
           <span key={tab} className="fade-up" style={{ display: "block", marginBottom: 14, ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" }}>
             {panel.shot.label}
           </span>
@@ -105,18 +105,18 @@ export function Stakeholders() {
           <div aria-hidden="true" style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "30%", background: "linear-gradient(to bottom, rgba(236,232,226,0), var(--line))", pointerEvents: "none" }} />
         </div>
 
-        <div key={tab} className="fade-up min-[900px]:order-first" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            <span style={{ fontSize: 30, lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.025em" }}>{panel.heading}</span>
-            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: "var(--body)", textWrap: "pretty" }}>{panel.blurb}</p>
+        <div key={tab} className="fade-up min-[900px]:order-first" style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 3vh, 28px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(8px, 1.6vh, 16px)" }}>
+            <span style={{ fontSize: "clamp(22px, 4vh, 30px)", lineHeight: 1.15, fontWeight: 500, letterSpacing: "-0.025em" }}>{panel.heading}</span>
+            <p style={{ margin: 0, fontSize: "clamp(15px, 2.4vh, 17px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>{panel.blurb}</p>
           </div>
           <div className="grid gap-3 min-[900px]:grid-cols-2">
             {panel.cards.map((k) => (
-              <div key={k.t} style={{ display: "flex", flexDirection: "column", gap: 28, padding: 20, borderRadius: 18, background: "#FFFFFF", border: "1px solid var(--border)" }}>
+              <div key={k.t} style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 1.2vh, 28px)", padding: "clamp(14px, 2.2vh, 20px)", borderRadius: 18, background: "#FFFFFF", border: "1px solid var(--border)" }}>
                 <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{k.i}</span>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <span style={{ fontSize: 18, fontWeight: 500, letterSpacing: "-0.02em" }}>{k.t}</span>
-                  <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--body)" }}>{k.d}</span>
+                  <span style={{ fontSize: "clamp(16px, 2.6vh, 18px)", fontWeight: 500, letterSpacing: "-0.02em" }}>{k.t}</span>
+                  <span className="card-desc" style={{ fontSize: 15, lineHeight: 1.5, color: "var(--body)" }}>{k.d}</span>
                 </div>
               </div>
             ))}

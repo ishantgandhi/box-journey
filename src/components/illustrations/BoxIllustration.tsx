@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 const KRAFT = { top: "#E4C8A2", left: "#CFAB80", right: "#B8915F", tape: "#EFDCC0", guide: "#6B5234" };
 
 // [x, width] of each barcode bar
@@ -10,12 +12,13 @@ type Props = {
   /** false: label hovers above the box with a dashed guide where it will land */
   placed?: boolean;
   label: string;
+  style?: CSSProperties;
 };
 
-export function BoxIllustration({ width, height, placed = false, label }: Props) {
+export function BoxIllustration({ width, height, placed = false, label, style }: Props) {
   const bars = placed ? PLACED_BARS : HOVER_BARS;
   return (
-    <svg width={width} height={height} viewBox="0 0 400 360" fill="none" role="img" aria-label={label} style={{ position: "relative" }}>
+    <svg width={width} height={height} viewBox="0 0 400 360" fill="none" role="img" aria-label={label} style={{ position: "relative", ...style }}>
       <ellipse cx="200" cy="344" rx="150" ry="12" fill="#141414" fillOpacity="0.07" />
       <polygon points="200,40 360,120 200,200 40,120" fill={KRAFT.top} />
       <polygon points="40,120 200,200 200,340 40,260" fill={KRAFT.left} />

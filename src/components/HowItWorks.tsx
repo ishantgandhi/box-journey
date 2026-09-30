@@ -1,5 +1,5 @@
 import { BoxIllustration } from "@/components/illustrations/BoxIllustration";
-import { container, eyebrow, gridBg, mono } from "@/lib/styles";
+import { container, eyebrow, gridBg, h2Size, mono, padY } from "@/lib/styles";
 
 const ACTIVE_STEP = 2;
 
@@ -40,12 +40,12 @@ function TaskIcon({ state }: { state: "done" | "current" | "todo" }) {
 
 export function HowItWorks() {
   return (
-    <section id="how" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-      <div style={{ ...container, padding: "112px 24px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(460px, 100%), 1fr))", gap: 64, alignItems: "start" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <section id="how" className="screen" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
+      <div style={{ ...container, padding: `${padY} 24px`, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(460px, 100%), 1fr))", gap: "clamp(32px, 6vh, 64px) 64px", alignItems: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(16px, 3.6vh, 36px)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
             <span style={eyebrow}>03 / How it works</span>
-            <h2 style={{ margin: 0, fontSize: "clamp(36px, 6vw, 52px)", lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em", textWrap: "balance" }}>Follow one box through the warehouse.</h2>
+            <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em", textWrap: "balance" }}>Follow one box through the warehouse.</h2>
           </div>
           <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column" }}>
             {steps.map(([title, desc], i) => {
@@ -58,15 +58,15 @@ export function HowItWorks() {
                     display: "grid",
                     gridTemplateColumns: "48px minmax(0, 1fr)",
                     gap: 8,
-                    padding: "22px 0",
+                    padding: "clamp(10px, 2vh, 22px) 0",
                     borderTop: `1px solid ${active ? "#141414" : "var(--line)"}`,
                     borderBottom: i === steps.length - 1 ? "1px solid var(--line)" : undefined,
                   }}
                 >
                   <span style={{ ...mono, fontSize: 13, color: muted, paddingTop: 4 }}>{String(i + 1).padStart(2, "0")}</span>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    <span style={{ fontSize: 21, fontWeight: 500, letterSpacing: "-0.02em", color: muted }}>{title}</span>
-                    <span style={{ fontSize: 15, lineHeight: 1.55, color: muted ?? "#3D3A36" }}>{desc}</span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "clamp(2px, 0.8vh, 6px)" }}>
+                    <span style={{ fontSize: "clamp(17px, 2.8vh, 21px)", fontWeight: 500, letterSpacing: "-0.02em", color: muted }}>{title}</span>
+                    <span className={active ? undefined : "step-desc-inactive"} style={{ fontSize: "clamp(14px, 2.2vh, 15px)", lineHeight: 1.5, color: muted ?? "#3D3A36" }}>{desc}</span>
                   </div>
                 </li>
               );
@@ -74,7 +74,7 @@ export function HowItWorks() {
           </ol>
         </div>
 
-        <div className="flex-col sm:flex-row" style={{ position: "relative", minHeight: 620, borderRadius: 24, background: "var(--background)", border: "1px solid var(--line)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", gap: 36, padding: 32, boxSizing: "border-box" }}>
+        <div className="flex-col sm:flex-row" style={{ position: "relative", minHeight: "min(620px, 70vh)", maxHeight: "70vh", borderRadius: 24, background: "var(--background)", border: "1px solid var(--line)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(16px, 4vh, 36px)", padding: "clamp(16px, 3vh, 32px)", boxSizing: "border-box" }}>
           <div aria-hidden="true" style={gridBg(20, 75)} />
           <BoxIllustration width={200} height={180} placed label="Cardboard box with its label applied" />
           <div style={{ position: "relative", width: 250, boxSizing: "border-box", padding: 12, border: "1.5px solid #141414", borderRadius: 26, background: "#FFFFFF" }}>

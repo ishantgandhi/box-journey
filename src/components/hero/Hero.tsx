@@ -1,8 +1,9 @@
 import type { CSSProperties } from "react";
+import { BrandStrip } from "@/components/BrandStrip";
 import { FlowsLink } from "@/components/FlowsLink";
 import { BoxIllustration } from "@/components/illustrations/BoxIllustration";
 import { TOTAL_FLOWS } from "@/data/retailers";
-import { CAL_URL, container, gridBg, mono } from "@/lib/styles";
+import { CAL_URL, container, gridBg, mono, padY } from "@/lib/styles";
 
 const cardLabel: CSSProperties = { ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" };
 const card: CSSProperties = {
@@ -18,38 +19,45 @@ const button: CSSProperties = { display: "inline-flex", alignItems: "center", mi
 
 export function Hero() {
   return (
-    <section style={{ ...container, padding: "72px 24px 0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-      <FlowsLink style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 999, background: "#FFFFFF", ...mono, fontSize: 12, textDecoration: "none" }}>
-        <span>{TOTAL_FLOWS} retail flows built</span>
-        <span style={{ padding: "5px 10px", borderRadius: 999, background: "#141414", color: "#FFFFFF" }}>See them</span>
-      </FlowsLink>
-      <h1 style={{ margin: "28px 0 0", maxWidth: 1040, fontSize: "clamp(40px, 8vw, 72px)", lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", textWrap: "balance" }}>
-        RetailReady is the future of supply chain compliance.
-      </h1>
-      <p style={{ margin: "20px 0 0", maxWidth: 880, fontSize: "clamp(20px, 3.4vw, 30px)", lineHeight: 1.22, letterSpacing: "-0.03em", color: "#858179", textWrap: "balance" }}>
-        Meet the system enabling brands and 3PLs to achieve zero chargebacks while helping retailers process inbound shipments faster.
-      </p>
-      <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 8, ...mono, fontSize: 14 }}>
-        <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Try our platform</a>
-        <FlowsLink style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows ({TOTAL_FLOWS})</FlowsLink>
-      </div>
+    <section className="screen">
+      <div style={{ ...container, flex: 1, display: "flex", alignItems: "center", padding: `${padY} 24px 0` }}>
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+            <FlowsLink style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 999, background: "#FFFFFF", ...mono, fontSize: 12, textDecoration: "none" }}>
+              <span>{TOTAL_FLOWS} retail flows built</span>
+              <span style={{ padding: "5px 10px", borderRadius: 999, background: "#141414", color: "#FFFFFF" }}>See them</span>
+            </FlowsLink>
+            <h1 style={{ margin: "clamp(16px, 3.4vh, 28px) 0 0", fontSize: "clamp(36px, min(5vw, 8vh), 72px)", lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", textWrap: "balance" }}>
+              RetailReady is the future of supply chain compliance.
+            </h1>
+            <p style={{ margin: "clamp(12px, 2.4vh, 20px) 0 0", maxWidth: 620, fontSize: "clamp(17px, min(2vw, 3.4vh), 30px)", lineHeight: 1.22, letterSpacing: "-0.03em", color: "#858179", textWrap: "balance" }}>
+              Meet the system enabling brands and 3PLs to achieve zero chargebacks while helping retailers process inbound shipments faster.
+            </p>
+            <div className="justify-center lg:justify-start" style={{ marginTop: "clamp(20px, 4.4vh, 36px)", display: "flex", flexWrap: "wrap", gap: 8, ...mono, fontSize: 14 }}>
+              <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Try our platform</a>
+              <FlowsLink style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows ({TOTAL_FLOWS})</FlowsLink>
+            </div>
+          </div>
 
-      <div style={{ position: "relative", width: "100%", maxWidth: 900, height: 360, marginTop: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div aria-hidden="true" style={gridBg(25, 70)} />
-        <div className="flex max-sm:hidden" style={{ ...card, left: 56, top: 64, transform: "rotate(-3deg)", gap: 6, padding: "16px 20px" }}>
-          <span style={cardLabel}>Walmart&apos;s routing guide</span>
-          <span style={{ fontSize: 26, fontWeight: 500, letterSpacing: "-0.03em" }}>399 pages</span>
-          <span style={cardLabel}>Read for you</span>
-        </div>
-        <BoxIllustration width={280} height={252} label="A cardboard box with its shipping label about to be placed" />
-        <div className="flex max-sm:hidden" style={{ ...card, right: 48, top: 150, transform: "rotate(2deg)", width: 210, boxSizing: "border-box", gap: 8, padding: "16px 18px" }}>
-          <span style={cardLabel}>Current step</span>
-          <span style={{ fontSize: 18, fontWeight: 500, letterSpacing: "-0.02em" }}>Guided Packaging Process</span>
-          <div style={{ height: 4, borderRadius: 2, background: "var(--line)", overflow: "hidden" }}>
-            <div style={{ width: "60%", height: "100%", background: "#141414" }} />
+          <div style={{ position: "relative", width: "100%", height: "clamp(260px, 50vh, 420px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div aria-hidden="true" style={gridBg(25, 70)} />
+            <div className="flex max-sm:hidden" style={{ ...card, left: 0, top: "3%", transform: "rotate(-3deg)", gap: 6, padding: "14px 18px", zIndex: 1 }}>
+              <span style={cardLabel}>Walmart&apos;s routing guide</span>
+              <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.03em" }}>399 pages</span>
+              <span style={cardLabel}>Read for you</span>
+            </div>
+            <BoxIllustration width={280} height={252} style={{ width: "min(38vh, 320px, 80vw)", height: "auto" }} label="A cardboard box with its shipping label about to be placed" />
+            <div className="flex max-sm:hidden" style={{ ...card, right: 0, bottom: "5%", transform: "rotate(2deg)", width: 200, boxSizing: "border-box", gap: 8, padding: "14px 16px", zIndex: 1 }}>
+              <span style={cardLabel}>Current step</span>
+              <span style={{ fontSize: 17, fontWeight: 500, letterSpacing: "-0.02em" }}>Guided Packaging Process</span>
+              <div style={{ height: 4, borderRadius: 2, background: "var(--line)", overflow: "hidden" }}>
+                <div style={{ width: "60%", height: "100%", background: "#141414" }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <BrandStrip />
     </section>
   );
 }

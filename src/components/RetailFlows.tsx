@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { TOTAL_FLOWS, retailers } from "@/data/retailers";
+import { RETAILERS, TOTAL_FLOWS } from "@/data/retailers";
 import { matchRetailer } from "@/lib/matchRetailer";
-import { CAL_URL, container, eyebrow, mono } from "@/lib/styles";
+import { CAL_URL, container, eyebrow, h2Size, mono, padY } from "@/lib/styles";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const EXIT_MS = 200;
 
 const darkEyebrow: CSSProperties = { ...eyebrow, color: "var(--dark-muted)" };
-const tile: CSSProperties = { display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 44, minHeight: 150, boxSizing: "border-box", padding: 20, borderRadius: 16, textDecoration: "none" };
-const tileTitle: CSSProperties = { fontSize: 23, fontWeight: 500, letterSpacing: "-0.02em" };
+const tile: CSSProperties = { display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "clamp(12px, 3vh, 44px)", minHeight: "clamp(96px, 14vh, 150px)", boxSizing: "border-box", padding: "clamp(14px, 2.4vh, 20px)", borderRadius: 16, textDecoration: "none" };
+const tileTitle: CSSProperties = { fontSize: "clamp(19px, 3vh, 23px)", fontWeight: 500, letterSpacing: "-0.02em" };
 const tileFoot: CSSProperties = { ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.06em" };
 const dashedTile: CSSProperties = { ...tile, border: "1px dashed #4A4A47", color: "var(--background)" };
 
@@ -40,7 +40,7 @@ export function RetailFlows() {
 
   const searching = query.trim() !== "";
   const matchesFor = (q: string) =>
-    q.trim() ? retailers.filter((r) => matchRetailer(r.name, q)).map((r) => r.name) : retailers.map((r) => r.name);
+    (q.trim() ? RETAILERS.filter((r) => matchRetailer(r.name, q)) : RETAILERS.filter((r) => r.featured)).map((r) => r.name);
   const matches = matchesFor(query);
 
   function update(next: string) {
@@ -52,65 +52,65 @@ export function RetailFlows() {
     timers.current.push(setTimeout(() => setLeaving((l) => l.filter((n) => !gone.includes(n))), EXIT_MS));
   }
 
-  const visible = retailers.filter((r) => matches.includes(r.name) || leaving.includes(r.name));
+  const visible = RETAILERS.filter((r) => matches.includes(r.name) || leaving.includes(r.name));
   const noResults = searching && matches.length === 0;
 
   return (
-    <section id="flows" style={{ background: "var(--dark)", color: "var(--background)" }}>
-      <div style={{ ...container, padding: "112px 24px", display: "flex", flexDirection: "column", gap: 44 }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(420px, 100%), 1fr))", gap: "32px 64px", alignItems: "end" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+    <section id="flows" className="screen" style={{ background: "var(--dark)", color: "var(--background)" }}>
+      <div style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(16px, 3vh, 44px)" }}>
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:gap-16" style={{ alignItems: "end" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
             <span style={darkEyebrow}>01 / Retail flows</span>
-            <h2 style={{ margin: 0, fontSize: "clamp(40px, 7vw, 60px)", lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.045em" }}>Compliant shipping made easy</h2>
-            <p style={{ margin: 0, maxWidth: 480, fontSize: 19, lineHeight: 1.55, color: "var(--dark-muted)", textWrap: "pretty" }}>
+            <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.02, fontWeight: 500, letterSpacing: "-0.045em" }}>Compliant shipping made easy</h2>
+            <p style={{ margin: 0, fontSize: "clamp(16px, 2.6vh, 19px)", lineHeight: 1.5, color: "var(--dark-muted)", textWrap: "pretty" }}>
               Check out the retail flows we&apos;ve built to ensure compliant and efficient shipping.
             </p>
+            <form role="search" onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 560, marginTop: "clamp(0px, 1vh, 12px)" }}>
+              <label htmlFor="rr-search" style={darkEyebrow}>Find your retailer</label>
+              <div style={{ display: "flex", gap: 8 }}>
+                <div style={{ position: "relative", flexGrow: 1, minWidth: 0, display: "flex" }}>
+                  <input
+                    id="rr-search"
+                    type="text"
+                    autoComplete="off"
+                    placeholder={`Search ${TOTAL_FLOWS} retailers`}
+                    value={query}
+                    onChange={(e) => update(e.target.value)}
+                    onKeyDown={(e) => e.key === "Escape" && update("")}
+                    style={{ flexGrow: 1, minWidth: 0, minHeight: 48, boxSizing: "border-box", padding: query ? "0 48px 0 16px" : "0 16px", border: "1px solid #3A3A38", borderRadius: 10, background: "#1F1F1E", color: "var(--background)", fontFamily: "inherit", fontSize: 16 }}
+                  />
+                  {query && (
+                    <button
+                      type="button"
+                      aria-label="Clear search"
+                      onClick={() => {
+                        update("");
+                        document.getElementById("rr-search")?.focus();
+                      }}
+                      className="text-[#A8A49D] hover:text-[#F6F4F1]"
+                      style={{ position: "absolute", right: 4, top: 4, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", border: 0, borderRadius: 8, background: "none", cursor: "pointer" }}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+                <button type="submit" style={{ minHeight: 48, padding: "0 20px", border: 0, borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 14, cursor: "pointer" }}>Search</button>
+              </div>
+              <span aria-live="polite" style={{ ...mono, fontSize: 12, color: "var(--dark-muted)" }}>
+                {searching ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}` : "Showing featured flows"}
+              </span>
+            </form>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", textAlign: "right", gap: 4 }}>
-            <span style={{ fontSize: "clamp(88px, 18vw, 148px)", lineHeight: 0.9, fontWeight: 500, letterSpacing: "-0.06em" }}>{TOTAL_FLOWS}</span>
+            <span style={{ fontSize: "clamp(80px, min(10vw, 17vh), 148px)", lineHeight: 0.9, fontWeight: 500, letterSpacing: "-0.06em" }}>{TOTAL_FLOWS}</span>
             <span style={darkEyebrow}>Retail flows and counting</span>
           </div>
         </div>
 
-        <form role="search" onSubmit={(e) => e.preventDefault()} style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 560 }}>
-          <label htmlFor="rr-search" style={darkEyebrow}>Find your retailer</label>
-          <div style={{ display: "flex", gap: 8 }}>
-            <div style={{ position: "relative", flexGrow: 1, minWidth: 0, display: "flex" }}>
-              <input
-                id="rr-search"
-                type="text"
-                autoComplete="off"
-                placeholder={`Search ${TOTAL_FLOWS} retailers`}
-                value={query}
-                onChange={(e) => update(e.target.value)}
-                onKeyDown={(e) => e.key === "Escape" && update("")}
-                style={{ flexGrow: 1, minWidth: 0, minHeight: 48, boxSizing: "border-box", padding: query ? "0 48px 0 16px" : "0 16px", border: "1px solid #3A3A38", borderRadius: 10, background: "#1F1F1E", color: "var(--background)", fontFamily: "inherit", fontSize: 16 }}
-              />
-              {query && (
-                <button
-                  type="button"
-                  aria-label="Clear search"
-                  onClick={() => {
-                    update("");
-                    document.getElementById("rr-search")?.focus();
-                  }}
-                  className="text-[#A8A49D] hover:text-[#F6F4F1]"
-                  style={{ position: "absolute", right: 4, top: 4, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", border: 0, borderRadius: 8, background: "none", cursor: "pointer" }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </button>
-              )}
-            </div>
-            <button type="submit" style={{ minHeight: 48, padding: "0 20px", border: 0, borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 14, cursor: "pointer" }}>Search</button>
-          </div>
-          <span aria-live="polite" style={{ ...mono, fontSize: 12, color: "var(--dark-muted)" }}>
-            {searching ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}` : "Showing featured flows"}
-          </span>
-        </form>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-3 lg:grid-cols-4">
           {visible.map(({ name }) => {
             const out = !matches.includes(name);
             return (

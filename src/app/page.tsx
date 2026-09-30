@@ -1,4 +1,3 @@
-import { BrandStrip } from "@/components/BrandStrip";
 import { Challenge } from "@/components/Challenge";
 import { HowItWorks } from "@/components/HowItWorks";
 import { JoinBanner } from "@/components/JoinBanner";
@@ -15,7 +14,6 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <BrandStrip />
         <RetailFlows />
         <Challenge />
         <HowItWorks />

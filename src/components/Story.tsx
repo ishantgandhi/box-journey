@@ -26,8 +26,8 @@ export function Story() {
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 28 }}>
-          <Stat value="100+" label="pages in the manuals workers are supposed to reference on every order" size={64} min={48} gap={10} />
-          <Stat value="p. 227" label="of Walmart's 399-page guide is where one of its label rules lives. Nobody checks that on every order." size={64} min={48} gap={10} />
+          <Stat value="100+" label="pages in the manuals workers are supposed to reference on every order" size="clamp(48px, 10vw, 64px)" gap={10} />
+          <Stat value="p. 227" label="of Walmart's 399-page guide is where one of its label rules lives. Nobody checks that on every order." size="clamp(48px, 10vw, 64px)" gap={10} />
         </div>
       </div>
     </section>

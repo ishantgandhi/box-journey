@@ -28,3 +28,8 @@ export const gridBg = (inner: number, outer: number): CSSProperties => ({
   maskImage: `radial-gradient(ellipse at center, #000000 ${inner}%, transparent ${outer}%)`,
   WebkitMaskImage: `radial-gradient(ellipse at center, #000000 ${inner}%, transparent ${outer}%)`,
 });
+
+// Vertical rhythm and type that scale with viewport height as well as width
+export const padY = "clamp(32px, 6vh, 112px)";
+export const h2Size = "clamp(30px, min(4vw, 6.5vh), 56px)";
+export const statSize = "clamp(40px, min(5vw, 9vh), 76px)";
