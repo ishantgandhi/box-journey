@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
+import { FlowsLink } from "@/components/FlowsLink";
 import { BoxIllustration } from "@/components/illustrations/BoxIllustration";
+import { TOTAL_FLOWS } from "@/data/retailers";
 import { CAL_URL, container, gridBg, mono } from "@/lib/styles";
 
 const cardLabel: CSSProperties = { ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" };
@@ -17,10 +19,10 @@ const button: CSSProperties = { display: "inline-flex", alignItems: "center", mi
 export function Hero() {
   return (
     <section style={{ ...container, padding: "72px 24px 0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-      <a href="#flows" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 999, background: "#FFFFFF", ...mono, fontSize: 12, textDecoration: "none" }}>
-        <span>139 retail flows built</span>
+      <FlowsLink style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 999, background: "#FFFFFF", ...mono, fontSize: 12, textDecoration: "none" }}>
+        <span>{TOTAL_FLOWS} retail flows built</span>
         <span style={{ padding: "5px 10px", borderRadius: 999, background: "#141414", color: "#FFFFFF" }}>See them</span>
-      </a>
+      </FlowsLink>
       <h1 style={{ margin: "28px 0 0", maxWidth: 1040, fontSize: "clamp(40px, 8vw, 72px)", lineHeight: 1.02, fontWeight: 600, letterSpacing: "-0.05em", textWrap: "balance" }}>
         RetailReady is the future of supply chain compliance.
       </h1>
@@ -29,7 +31,7 @@ export function Hero() {
       </p>
       <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 8, ...mono, fontSize: 14 }}>
         <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Try our platform</a>
-        <a href="#flows" style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows (139)</a>
+        <FlowsLink style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows ({TOTAL_FLOWS})</FlowsLink>
       </div>
 
       <div style={{ position: "relative", width: "100%", maxWidth: 900, height: 360, marginTop: 48, display: "flex", alignItems: "center", justifyContent: "center" }}>

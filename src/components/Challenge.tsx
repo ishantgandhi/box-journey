@@ -1,3 +1,4 @@
+import { TOTAL_FLOWS } from "@/data/retailers";
 import { Stat } from "@/components/Stat";
 import { container, eyebrow, mono } from "@/lib/styles";
 
@@ -9,7 +10,7 @@ const problems = [
 ];
 
 const solutions = [
-  ["139", "retail flows built and kept current"],
+  [String(TOTAL_FLOWS), "retail flows built and kept current"],
   ["Days", "to deploy across your warehouse network, not months"],
   ["0", "hours of retailer training before packers start"],
   ["0", "integrations required to get started"],
