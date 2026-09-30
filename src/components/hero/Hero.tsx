@@ -35,7 +35,16 @@ export function Hero() {
             </p>
             <div className="justify-center lg:justify-start" style={{ marginTop: "clamp(20px, 4.4vh, 36px)", display: "flex", flexWrap: "wrap", gap: 8, ...mono, fontSize: 14 }}>
               <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Try our platform</a>
-              <FlowsLink showAll style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows ({TOTAL_FLOWS})</FlowsLink>
+              <span style={{ ...button, gap: 10, color: "var(--muted)" }}>
+                Backed by
+                <span aria-label="Y Combinator" role="img" style={{ display: "inline-flex", alignItems: "center", gap: 7, color: "#F26522", fontFamily: "var(--font-body)", fontSize: 17, fontWeight: 500, letterSpacing: "-0.01em" }}>
+                  <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+                    <rect width="22" height="22" fill="#F26522" />
+                    <path d="M6.5 5.5 11 12.2 15.5 5.5M11 12.2V17" stroke="#FFFFFF" strokeWidth="1.8" fill="none" />
+                  </svg>
+                  Combinator
+                </span>
+              </span>
             </div>
           </div>
 
