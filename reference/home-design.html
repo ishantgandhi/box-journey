@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Minimal: Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#141414}a:hover{color:#4A4A47}
+#rr-search::placeholder{color:#8F8B84}
+@keyframes rrpop{0%{opacity:0;transform:translateY(10px) scale(.7)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes rrout{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-8px)}}
+.rr-in{animation:rrpop .22s ease-out both;transform-origin:50% 90%}
+.rr-out{animation:rrout .45s ease-in both;transform-origin:50% 90%}
+@media (prefers-reduced-motion: reduce){.rr-in,.rr-out{animation:none}}
+</style>
+</helmet>
+<div style="box-sizing: border-box; background: #F6F4F1; color: #141414; font-family: 'Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif">
+
+<header style="display: flex; justify-content: center; padding: 20px 16px 0">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; padding: 8px 8px 8px 18px; border-radius: 14px; background: #161616; color: #FFFFFF">
+<a href="#" style="display: flex; align-items: center; gap: 10px; color: #FFFFFF; text-decoration: none">
+<svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l7 3.5L10 9 3 5.5z" fill="#E4C8A2"></path><path d="M10 2l7 3.5v9L10 18l-7-3.5v-9z" stroke="#FFFFFF" stroke-width="1.4" stroke-linejoin="round"></path><path d="M3 5.5L10 9l7-3.5M10 9v9" stroke="#FFFFFF" stroke-width="1.4" stroke-linejoin="round"></path></svg>
+<span style="font-size: 19px; font-weight: 600; letter-spacing: -0.02em">RetailReady</span>
+</a>
+<nav aria-label="Main" style="display: flex; gap: 24px; font-size: 15px">
+<a href="#" style="color: #FFFFFF; text-decoration: none">Home</a>
+<a href="#cases" style="color: #C4C0B9; text-decoration: none">Case Studies</a>
+<a href="#partners" style="color: #C4C0B9; text-decoration: none">Certified 3PLs</a>
+<a href="#about" style="color: #C4C0B9; text-decoration: none">About</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 4px; font-family: 'Geist Mono', monospace; font-size: 13px">
+<a href="#login" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; color: #FFFFFF; text-decoration: none">Log in</a>
+<a href="#demo" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 9px; background: #FFFFFF; color: #141414; text-decoration: none">Meet with us</a>
+</div>
+</div>
+</header>
+
+<section style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 88px 24px 0; display: flex; flex-direction: column; align-items: center; text-align: center">
+<a href="#flows" style="display: inline-flex; align-items: center; gap: 10px; padding: 5px 5px 5px 14px; border: 1px solid #E2DED8; border-radius: 999px; background: #FFFFFF; font-family: 'Geist Mono', monospace; font-size: 12px; text-decoration: none">
+<span>139 retail flows built</span>
+<span style="padding: 5px 10px; border-radius: 999px; background: #141414; color: #FFFFFF">See them</span>
+</a>
+<h1 style="margin: 28px 0 0; max-width: 1040px; font-size: 72px; line-height: 1.02; font-weight: 600; letter-spacing: -0.05em; text-wrap: balance">RetailReady is the future of supply chain compliance.</h1>
+<p style="margin: 20px 0 0; max-width: 880px; font-size: 30px; line-height: 1.22; letter-spacing: -0.03em; color: #858179; text-wrap: balance">Meet the system enabling brands and 3PLs to achieve zero chargebacks while helping retailers process inbound shipments faster.</p>
+<div style="margin-top: 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 14px">
+<a href="#demo" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 10px; background: #141414; color: #FFFFFF; text-decoration: none">Meet with us</a>
+<a href="#flows" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 10px; border: 1px solid #DCD8D1; background: #FFFFFF; color: #141414; text-decoration: none">Show all flows (139)</a>
+</div>
+
+<div style="position: relative; width: 100%; max-width: 900px; height: 360px; margin-top: 48px; display: flex; align-items: center; justify-content: center">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: linear-gradient(#E3DFD8 1px, transparent 1px), linear-gradient(90deg, #E3DFD8 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse at center, #000000 25%, transparent 70%); mask-image: radial-gradient(ellipse at center, #000000 25%, transparent 70%)"></div>
+<div style="position: absolute; left: 56px; top: 64px; transform: rotate(-3deg); display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border: 1px solid #E6E2DC; border-radius: 14px; background: #FFFFFF; text-align: left; box-shadow: 0 14px 30px rgba(20,20,20,0.06)">
+<span style="font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #6E6A64">Walmart's routing guide</span>
+<span style="font-size: 26px; font-weight: 500; letter-spacing: -0.03em">399 pages</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #6E6A64">Read for you</span>
+</div>
+<svg width="280" height="252" viewBox="0 0 400 360" fill="none" role="img" aria-label="A cardboard box with its shipping label about to be placed" style="position: relative">
+<ellipse cx="200" cy="344" rx="150" ry="12" fill="#141414" fill-opacity="0.07"></ellipse>
+<polygon points="200,40 360,120 200,200 40,120" fill="{{top}}"></polygon>
+<polygon points="40,120 200,200 200,340 40,260" fill="{{left}}"></polygon>
+<polygon points="200,200 360,120 360,260 200,340" fill="{{right}}"></polygon>
+<polygon points="107.5,73.7 132.5,86.3 292.5,166.3 267.5,153.7" fill="{{tape}}"></polygon>
+<g transform="matrix(1 0.5 0 1 0 0)">
+<rect x="80" y="130" width="90" height="60" rx="3" stroke="{{guide}}" stroke-width="1.5" stroke-dasharray="5 4"></rect>
+</g>
+<g transform="translate(-60 -70)">
+<g transform="matrix(1 0.5 0 1 0 0)">
+<rect x="80" y="130" width="90" height="60" rx="3" fill="#FFFFFF" stroke="#141414" stroke-width="1.5"></rect>
+<rect x="88" y="138" width="38" height="4" rx="2" fill="#141414"></rect>
+<rect x="88" y="146" width="24" height="4" rx="2" fill="#141414" fill-opacity="0.35"></rect>
+<rect x="88" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="92" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="94" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="99" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="102" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="106" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="108" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="113" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="117" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="119" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="123" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="128" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="130" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="134" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="137" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="142" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="145" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="149" y="156" width="1" height="26" fill="#141414"></rect>
+<rect x="151" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="156" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="160" y="156" width="1" height="26" fill="#141414"></rect>
+</g>
+</g>
+</svg>
+<div style="position: absolute; right: 48px; top: 150px; transform: rotate(2deg); width: 210px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border: 1px solid #E6E2DC; border-radius: 14px; background: #FFFFFF; text-align: left; box-shadow: 0 14px 30px rgba(20,20,20,0.06)">
+<span style="font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #6E6A64">Current step</span>
+<span style="font-size: 18px; font-weight: 500; letter-spacing: -0.02em">Guided Packaging Process</span>
+<div style="height: 4px; border-radius: 2px; background: #ECE8E2; overflow: hidden"><div style="width: 60%; height: 100%; background: #141414"></div></div>
+</div>
+</div>
+</section>
+
+<div style="width: 100%; max-width: 1200px; margin: 48px auto 0; box-sizing: border-box; padding: 28px 24px 40px; border-top: 1px solid #E3DFD8; display: flex; flex-direction: column; align-items: center; gap: 22px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">Trusted by brands and 3PLs</span>
+<div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 40px; font-size: 23px; font-weight: 600; letter-spacing: -0.03em; color: #57534E">
+<span>Brümate</span>
+<span>Natural Dog Company</span>
+<span>Ware2Go</span>
+<span>GoBolt</span>
+<span>Radial</span>
+</div>
+</div>
+
+<section id="flows" style="background: #161616; color: #F6F4F1">
+<div style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 112px 24px; display: flex; flex-direction: column; gap: 44px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 32px 64px; align-items: end">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #A8A49D">01 / Retail flows</span>
+<h2 style="margin: 0; font-size: 60px; line-height: 1.02; font-weight: 500; letter-spacing: -0.045em">Compliant shipping made easy</h2>
+<p style="margin: 0; max-width: 480px; font-size: 19px; line-height: 1.55; color: #A8A49D; text-wrap: pretty">Check out the retail flows we've built to ensure compliant and efficient shipping.</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 4px">
+<span style="font-size: 148px; line-height: 0.9; font-weight: 500; letter-spacing: -0.06em">139</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #A8A49D">Retail flows and counting</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<label for="rr-search" style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #A8A49D">Find your retailer</label>
+<div style="display: flex; gap: 8px">
+<input id="rr-search" type="text" placeholder="Search 139 retailers" style="flex-grow: 1; min-width: 0; min-height: 48px; box-sizing: border-box; padding: 0 16px; border: 1px solid #3A3A38; border-radius: 10px; background: #1F1F1E; color: #F6F4F1; font-family: inherit; font-size: 16px">
+<button type="button" style="min-height: 48px; padding: 0 20px; border: 0; border-radius: 10px; background: #F6F4F1; color: #141414; font-family: 'Geist Mono', monospace; font-size: 14px">Search</button>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{retailers}}" as="r" hint-placeholder-count="6">
+<a href="#flow" style="display: flex; flex-direction: column; justify-content: space-between; gap: 44px; min-height: 150px; box-sizing: border-box; padding: 20px; border-radius: 16px; border: 1px solid #2E2E2C; background: #1F1F1E; color: #F6F4F1; text-decoration: none">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<span style="font-size: 23px; font-weight: 500; letter-spacing: -0.02em">{{r.name}}</span>
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M5 13L13 5M6.5 5H13v6.5" stroke="#A8A49D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</div>
+<span style="display: flex; align-items: center; gap: 8px; font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #A8A49D"><span style="width: 7px; height: 7px; border-radius: 999px; background: #5FD08A"></span>Flow live</span>
+</a>
+</sc-for>
+<a href="#all-flows" style="display: flex; flex-direction: column; justify-content: space-between; gap: 44px; min-height: 150px; box-sizing: border-box; padding: 20px; border-radius: 16px; background: #F6F4F1; color: #141414; text-decoration: none">
+<span style="font-size: 23px; font-weight: 500; letter-spacing: -0.02em">More retailers</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em">Show all flows (139)</span>
+</a>
+<a href="#demo" style="display: flex; flex-direction: column; justify-content: space-between; gap: 44px; min-height: 150px; box-sizing: border-box; padding: 20px; border-radius: 16px; border: 1px dashed #4A4A47; color: #F6F4F1; text-decoration: none">
+<span style="font-size: 23px; font-weight: 500; letter-spacing: -0.02em">Don't see yours?</span>
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #A8A49D">Ask us about it</span>
+</a>
+</div>
+</div>
+</section>
+
+<section id="challenge" style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 112px 24px; display: flex; flex-direction: column; gap: 56px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 24px 64px; align-items: end">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">02 / The challenge</span>
+<h2 style="margin: 0; font-size: 52px; line-height: 1.04; font-weight: 500; letter-spacing: -0.04em; text-wrap: balance">The Challenge of Retail Compliance</h2>
+</div>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #5E5A54; text-wrap: pretty">Retailers have complex shipping requirements that lead to costly chargebacks. Here's how RetailReady solves this.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">$40B</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">lost to retail chargebacks every year</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">3%</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">of a brand's gross invoice, on average</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">10–12%</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">of inbound orders get flagged non-compliant</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">2x</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">the labor to process each of those orders</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 40px; padding: 40px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E6E2DC">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">How RetailReady solves it</span>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 72px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">139</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">retail flows built and kept current</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 72px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">Days</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">to deploy across your warehouse network, not months</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 72px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">0</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">hours of retailer training before packers start</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 72px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">0</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">integrations required to get started</span></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 32px; padding-top: 32px; border-top: 1px solid #ECE8E2">
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6E6A64">01</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">Lightning Fast Setup</span><span style="font-size: 15px; line-height: 1.55; color: #5E5A54">Deploy across your warehouse network in days, not months. Immediate impact on operations.</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6E6A64">02</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">Real-time Updates</span><span style="font-size: 15px; line-height: 1.55; color: #5E5A54">Stay ahead with instant notifications about compliance changes and requirements.</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6E6A64">03</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">Mobile First</span><span style="font-size: 15px; line-height: 1.55; color: #5E5A54">Intuitive mobile interface designed for warehouse operations and on-the-go management.</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6E6A64">04</span><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">Automated Workflows</span><span style="font-size: 15px; line-height: 1.55; color: #5E5A54">Streamline operations with AI-powered task management and compliance checks.</span></div>
+</div>
+</div>
+</section>
+
+<section id="how" style="background: #FFFFFF; border-top: 1px solid #ECE8E2; border-bottom: 1px solid #ECE8E2">
+<div style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 112px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 64px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">03 / How it works</span>
+<h2 style="margin: 0; font-size: 52px; line-height: 1.04; font-weight: 500; letter-spacing: -0.04em; text-wrap: balance">Follow one box through the warehouse.</h2>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<li style="display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; padding: 22px 0; border-top: 1px solid #ECE8E2"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #6E6A64; padding-top: 4px">01</span><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 21px; font-weight: 500; letter-spacing: -0.02em; color: #6E6A64">Smart Order Processing</span><span style="font-size: 15px; line-height: 1.55; color: #6E6A64">Start your fulfillment journey with our intuitive mobile interface. Directed packout workflows ensure accuracy from the first step.</span></div></li>
+<li style="display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; padding: 22px 0; border-top: 1px solid #ECE8E2"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #6E6A64; padding-top: 4px">02</span><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 21px; font-weight: 500; letter-spacing: -0.02em; color: #6E6A64">Proactive Compliance Checks</span><span style="font-size: 15px; line-height: 1.55; color: #6E6A64">Prevent costly mistakes before they happen. Our system automatically validates retailer requirements, ensuring every SKU meets compliance standards before shipping.</span></div></li>
+<li style="display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; padding: 22px 0; border-top: 1px solid #141414"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; padding-top: 4px">03</span><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 21px; font-weight: 500; letter-spacing: -0.02em">Guided Packaging Process</span><span style="font-size: 15px; line-height: 1.55; color: #3D3A36">Follow clear, step-by-step instructions for proper labeling and packaging. Our system ensures every box is correctly labeled and ready for shipment.</span></div></li>
+<li style="display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; padding: 22px 0; border-top: 1px solid #ECE8E2"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #6E6A64; padding-top: 4px">04</span><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 21px; font-weight: 500; letter-spacing: -0.02em; color: #6E6A64">Verified Success</span><span style="font-size: 15px; line-height: 1.55; color: #6E6A64">Celebrate each perfectly packed order! Our system confirms successful completion, giving you confidence that every shipment meets the highest standards.</span></div></li>
+<li style="display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 8px; padding: 22px 0; border-top: 1px solid #ECE8E2; border-bottom: 1px solid #ECE8E2"><span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #6E6A64; padding-top: 4px">05</span><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 21px; font-weight: 500; letter-spacing: -0.02em; color: #6E6A64">Comprehensive Compliance Reports</span><span style="font-size: 15px; line-height: 1.55; color: #6E6A64">Track your success with detailed compliance reports for every order. Get actionable insights and proof of compliance for your retail partners.</span></div></li>
+</ol>
+</div>
+<div style="position: relative; min-height: 620px; border-radius: 24px; background: #F6F4F1; border: 1px solid #ECE8E2; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 36px; padding: 32px; box-sizing: border-box">
+<div aria-hidden="true" style="position: absolute; inset: 0; background-image: linear-gradient(#E3DFD8 1px, transparent 1px), linear-gradient(90deg, #E3DFD8 1px, transparent 1px); background-size: 28px 28px; -webkit-mask-image: radial-gradient(ellipse at center, #000000 20%, transparent 75%); mask-image: radial-gradient(ellipse at center, #000000 20%, transparent 75%)"></div>
+<svg width="200" height="180" viewBox="0 0 400 360" fill="none" role="img" aria-label="Cardboard box with its label applied" style="position: relative">
+<ellipse cx="200" cy="344" rx="150" ry="12" fill="#141414" fill-opacity="0.07"></ellipse>
+<polygon points="200,40 360,120 200,200 40,120" fill="#E4C8A2"></polygon>
+<polygon points="40,120 200,200 200,340 40,260" fill="#CFAB80"></polygon>
+<polygon points="200,200 360,120 360,260 200,340" fill="#B8915F"></polygon>
+<polygon points="107.5,73.7 132.5,86.3 292.5,166.3 267.5,153.7" fill="#EFDCC0"></polygon>
+<g transform="matrix(1 0.5 0 1 0 0)">
+<rect x="80" y="130" width="90" height="60" rx="3" fill="#FFFFFF" stroke="#141414" stroke-width="1.5"></rect>
+<rect x="88" y="138" width="38" height="4" rx="2" fill="#141414"></rect>
+<rect x="88" y="146" width="24" height="4" rx="2" fill="#141414" fill-opacity="0.35"></rect>
+<rect x="88" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="94" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="102" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="108" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="113" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="119" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="123" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="130" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="137" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="145" y="156" width="2" height="26" fill="#141414"></rect>
+<rect x="151" y="156" width="3" height="26" fill="#141414"></rect>
+<rect x="156" y="156" width="2" height="26" fill="#141414"></rect>
+</g>
+</svg>
+<div style="position: relative; width: 250px; box-sizing: border-box; padding: 12px; border: 1.5px solid #141414; border-radius: 26px; background: #FFFFFF">
+<div style="box-sizing: border-box; padding: 18px; border: 1px solid #ECE8E2; border-radius: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; font-family: 'Geist Mono', monospace; font-size: 11px; color: #6E6A64"><span>Current order</span></div>
+<span style="font-size: 20px; line-height: 1.15; font-weight: 500; letter-spacing: -0.02em">Apply the carton label</span>
+<div style="height: 4px; border-radius: 2px; background: #ECE8E2; overflow: hidden"><div style="width: 60%; height: 100%; background: #141414"></div></div>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+<li style="display: flex; align-items: center; gap: 10px; color: #6E6A64"><span style="width: 18px; height: 18px; flex-shrink: 0; border-radius: 999px; background: #141414; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3 4.7-5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Count units</span></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #6E6A64"><span style="width: 18px; height: 18px; flex-shrink: 0; border-radius: 999px; background: #141414; display: flex; align-items: center; justify-content: center"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2.5 6.2l2.3 2.3 4.7-5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Check SKU rules</span></li>
+<li style="display: flex; align-items: center; gap: 10px; font-weight: 500"><span style="width: 18px; height: 18px; flex-shrink: 0; box-sizing: border-box; border-radius: 999px; border: 2px solid #141414; display: flex; align-items: center; justify-content: center"><span style="width: 6px; height: 6px; border-radius: 999px; background: #141414"></span></span><span>Label and scan</span></li>
+<li style="display: flex; align-items: center; gap: 10px; color: #6E6A64"><span style="width: 18px; height: 18px; flex-shrink: 0; box-sizing: border-box; border-radius: 999px; border: 1.5px solid #CFCBC4"></span><span>Photo of carton</span></li>
+</ul>
+<button type="button" style="min-height: 44px; border: 0; border-radius: 10px; background: #141414; color: #FFFFFF; font-family: 'Geist Mono', monospace; font-size: 13px">Scan label</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="stakeholders" style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 112px 24px 64px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">04 / Who it's for</span>
+<h2 style="margin: 0; font-size: 52px; line-height: 1.04; font-weight: 500; letter-spacing: -0.04em">Value for every stakeholder</h2>
+</div>
+<div role="tablist" aria-label="Stakeholder" style="display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: #ECE8E2; font-family: 'Geist Mono', monospace; font-size: 13px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+<button type="button" role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 9px; background: {{t.bg}}; color: {{t.fg}}; font-family: inherit; font-size: inherit; cursor: pointer">{{t.label}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px 64px; align-items: end">
+<span style="font-size: 30px; line-height: 1.15; font-weight: 500; letter-spacing: -0.025em">{{panel.heading}}</span>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #5E5A54; text-wrap: pretty">{{panel.blurb}}</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 12px">
+<sc-for list="{{panel.cards}}" as="k" hint-placeholder-count="4">
+<div style="display: flex; flex-direction: column; gap: 40px; padding: 24px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E6E2DC"><span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #6E6A64">{{k.i}}</span><div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em">{{k.t}}</span><span style="font-size: 15px; line-height: 1.55; color: #5E5A54">{{k.d}}</span></div></div>
+</sc-for>
+</div>
+</section>
+
+<section id="story" style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 48px 24px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); gap: 48px 64px; padding: 48px; border-radius: 24px; background: #FFFFFF; border: 1px solid #E6E2DC">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">05 / Our story</span>
+<p style="margin: 0; font-size: 30px; line-height: 1.28; letter-spacing: -0.025em; text-wrap: pretty">Before YC, we worked at Stord, a supply chain unicorn, keeping their warehouse shipping facility running efficiently. We realized operations still largely relied on paper to pack an order correctly.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 18px; font-weight: 500">Sarah Hamer</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #6E6A64">Co-founder &amp; COO</span><a href="#linkedin-sarah" style="font-size: 14px; color: #141414; text-underline-offset: 4px">LinkedIn</a></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 18px; font-weight: 500">Elle Smyth</span><span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #6E6A64">Co-founder &amp; CEO</span><a href="#linkedin-elle" style="font-size: 14px; color: #141414; text-underline-offset: 4px">LinkedIn</a></div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; justify-content: flex-end; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">100+</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">pages in the manuals workers are supposed to reference on every order</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 20px; border-top: 1px solid #141414"><span style="font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -0.055em">p. 227</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A54">of Walmart's 399-page guide is where one of its label rules lives. Nobody checks that on every order.</span></div>
+</div>
+</div>
+</section>
+
+<section style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 48px 24px 96px">
+<div style="position: relative; height: 400px; border-radius: 28px; overflow: hidden; background: #161616; color: #F6F4F1">
+<svg aria-hidden="true" width="1440" height="440" style="position: absolute; left: 0; top: 0">
+<defs><pattern id="rr-iso" width="72" height="36" patternUnits="userSpaceOnUse"><path d="M0 18L36 0L72 18L36 36Z" stroke="#FFFFFF" stroke-opacity="0.11" stroke-width="1" fill="none"></path></pattern></defs>
+<rect width="1440" height="440" fill="url(#rr-iso)"></rect>
+</svg>
+<div style="position: absolute; inset: 0">
+<sc-for list="{{cells}}" as="c" hint-placeholder-count="1">
+<div onMouseEnter="{{c.enter}}" style="position: absolute; left: {{c.x}}px; top: {{c.y}}px; width: 72px; height: 36px; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%)"></div>
+</sc-for>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; pointer-events: none">
+<sc-for list="{{boxes}}" as="b" hint-placeholder-count="1">
+<svg class="{{b.cls}}" width="90" height="81" viewBox="0 0 400 360" fill="none" style="position: absolute; left: {{b.x}}px; top: {{b.y}}px">
+<polygon points="200,40 360,120 200,200 40,120" fill="{{b.ct}}"></polygon>
+<polygon points="40,120 200,200 200,340 40,260" fill="{{b.cl}}"></polygon>
+<polygon points="200,200 360,120 360,260 200,340" fill="{{b.cr}}"></polygon>
+<polygon points="107.5,73.7 132.5,86.3 292.5,166.3 267.5,153.7" fill="{{b.cp}}"></polygon>
+</svg>
+</sc-for>
+</div>
+<div style="position: relative; height: 100%; box-sizing: border-box; max-width: 640px; padding: 56px; display: flex; flex-direction: column; justify-content: center; gap: 18px; pointer-events: none">
+<span style="font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #A8A49D">06 / Get started</span>
+<h2 style="margin: 0; font-size: 50px; line-height: 1.04; font-weight: 500; letter-spacing: -0.04em">Join the future of retail compliance</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #BDB9B2; text-wrap: pretty">Many warehouses have already transformed their operations with RetailReady. Experience how our platform can revolutionize your supply chain compliance.</p>
+<a href="#demo" style="align-self: flex-start; pointer-events: auto; display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 10px; background: #F6F4F1; color: #141414; font-family: 'Geist Mono', monospace; font-size: 14px; text-decoration: none">Get Started – Demo &amp; Pricing</a>
+</div>
+<span style="position: absolute; right: 24px; bottom: 20px; font-family: 'Geist Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #8F8B84; pointer-events: none">Move your cursor</span>
+</div>
+</section>
+
+<footer style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 0 24px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 24px; border-top: 1px solid #E3DFD8">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px">
+<a href="#" style="display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: -0.02em; text-decoration: none">
+<svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l7 3.5L10 9 3 5.5z" fill="#E4C8A2"></path><path d="M10 2l7 3.5v9L10 18l-7-3.5v-9z" stroke="#141414" stroke-width="1.4" stroke-linejoin="round"></path><path d="M3 5.5L10 9l7-3.5M10 9v9" stroke="#141414" stroke-width="1.4" stroke-linejoin="round"></path></svg>
+<span>RetailReady</span>
+</a>
+<a href="#privacy" style="color: #5E5A54; text-decoration: none">Privacy</a>
+<a href="#terms" style="color: #5E5A54; text-decoration: none">Terms</a>
+<a href="#roundup" style="color: #5E5A54; text-decoration: none">Roundup</a>
+<a href="#careers" style="color: #5E5A54; text-decoration: none">Careers</a>
+</div>
+<a href="#linkedin" aria-label="RetailReady on LinkedIn" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid #E3DFD8">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="13" height="13" rx="2.5" stroke="#141414" stroke-width="1.3"></rect><path d="M5 7v4.5M5 4.8v.1M7.8 11.5V7m0 1.9c0-1.1.8-1.9 1.8-1.9s1.6.7 1.6 1.8v2.7" stroke="#141414" stroke-width="1.3" stroke-linecap="round"></path></svg>
+</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-family: 'Geist Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #6E6A64">
+<span>© 2026 RetailReady. All rights reserved.</span>
+<span>San Francisco</span>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"boxTone":{"editor":"enum","options":["Kraft","Stone","Ink"],"default":"Kraft"},"$preview":{"width":1440,"height":6300}}'>
+class Component extends DCLogic {
+  componentWillUnmount() {
+    const t = this.timers || {};
+    Object.keys(t).forEach((k) => clearTimeout(t[k]));
+  }
+  light(id) {
+    this.timers = this.timers || {};
+    const shown = Object.assign({}, (this.state && this.state.shown) || {});
+    shown[id] = 'in';
+    this.setState({ shown: shown });
+    clearTimeout(this.timers[id]);
+    this.timers[id] = setTimeout(() => {
+      const s1 = Object.assign({}, (this.state && this.state.shown) || {});
+      s1[id] = 'out';
+      this.setState({ shown: s1 });
+      this.timers[id] = setTimeout(() => {
+        const s2 = Object.assign({}, (this.state && this.state.shown) || {});
+        delete s2[id];
+        this.setState({ shown: s2 });
+        delete this.timers[id];
+      }, 450);
+    }, 900);
+  }
+  getCells() {
+    if (this.cells) return this.cells;
+    const W = 72, H = 36, cells = [];
+    this.cellMap = {};
+    for (let r = 0; r < 25; r++) {
+      for (let c = 0; c < 21; c++) {
+        const id = r * 100 + c;
+        const cell = { id: id, x: c * W + (r % 2) * (W / 2) - W / 2, y: r * (H / 2) - H / 2, enter: () => this.light(id) };
+        cells.push(cell);
+        this.cellMap[id] = cell;
+      }
+    }
+    this.cells = cells;
+    return cells;
+  }
+  renderVals() {
+    const tones = {
+      Kraft: { top: '#E4C8A2', left: '#CFAB80', right: '#B8915F', tape: '#EFDCC0', guide: '#6B5234' },
+      Stone: { top: '#E6E6E3', left: '#D2D2CE', right: '#BDBDB8', tape: '#F1F1EE', guide: '#5E5E5B' },
+      Ink: { top: '#3A3A38', left: '#2A2A28', right: '#1C1C1B', tape: '#4A4A47', guide: '#D2D2CE' }
+    };
+    const t = tones[this.props.boxTone ?? 'Kraft'] || tones.Kraft;
+    const retailers = ["CVS", "Chewy", "Dick's Sporting Goods", "Dillard's", "H-E-B", "JCPenney"].map((name) => ({ name: name }));
+    const cells = this.getCells();
+    const shown = (this.state && this.state.shown) || {};
+    const boxTones = [
+      ['#E4C8A2', '#CFAB80', '#B8915F', '#EFDCC0'],
+      ['#EDD6B4', '#D9B78D', '#C29C6C', '#F5E6CF'],
+      ['#D8B78C', '#C29A6B', '#A98050', '#E6CCA8']
+    ];
+    const boxes = Object.keys(shown).map((k) => {
+      const c = this.cellMap[k];
+      const bt = boxTones[(c.id * 7) % 3];
+      return { x: c.x - 9, y: c.y - 40, y0: c.y, cls: shown[k] === 'in' ? 'rr-in' : 'rr-out', ct: bt[0], cl: bt[1], cr: bt[2], cp: bt[3] };
+    }).sort((a, b) => (a.y0 - b.y0) || (a.x - b.x));
+    const panels = {
+      '3pl': { label: 'For 3PLs', heading: 'Streamline Your Operations', blurb: 'Our user-friendly mobile application ensures operational shipping compliance to retailers. It turns routing guides into step-by-step tasks and keeps a visual repository of every order for dispute resolution.', cards: [
+        { i: 'A', t: 'Smart Packout Flow', d: 'Mobile-first compliance solution with AI-powered instructions' },
+        { i: 'B', t: 'Task Management', d: 'Prioritized daily workflows with real-time tracking' },
+        { i: 'C', t: 'EDI Services', d: 'Automated document exchange and compliance validation' },
+        { i: 'D', t: 'Automated ASN', d: 'Streamlined shipping notices with multi-carrier support' } ] },
+      'brands': { label: 'For Brands', heading: "See how your orders are packed", blurb: "Our dashboard offers insights into your or your 3PL's operations, allowing you to upload chargebacks. That data tailors your packing process with extra validation checks.", cards: [
+        { i: 'A', t: 'Operations Dashboard', d: "Insights into your own or your 3PL's operations" },
+        { i: 'B', t: 'Chargeback Uploads', d: 'Upload the chargebacks you receive from retailers' },
+        { i: 'C', t: 'Tailored Validation', d: 'Your chargeback data adds extra validation checks to packing' },
+        { i: 'D', t: 'Order Photos', d: 'A visual record of every order for dispute resolution' } ] },
+      'retailers': { label: 'For Retailers', heading: 'Catch vendor errors at the dock', blurb: 'Our retailer mobile app automatically detects and records shipping compliance errors from vendors, speeding up revenue generation and increasing labor efficiency.', cards: [
+        { i: 'A', t: 'Error Detection', d: 'Automatically detects shipping compliance errors from vendors' },
+        { i: 'B', t: 'Automatic Records', d: 'Every error recorded for you, no more spreadsheets' },
+        { i: 'C', t: 'Faster Revenue', d: 'Speeds up revenue generation on inbound shipments' },
+        { i: 'D', t: 'Labor Efficiency', d: 'Non-compliant orders take 2X the labor. Catch them early.' } ] }
+    };
+    const current = (this.state && this.state.tab) || '3pl';
+    const tabs = Object.keys(panels).map((key) => ({
+      label: panels[key].label,
+      sel: key === current ? 'true' : 'false',
+      bg: key === current ? '#141414' : 'transparent',
+      fg: key === current ? '#FFFFFF' : '#141414',
+      pick: () => this.setState({ tab: key })
+    }));
+    return { top: t.top, left: t.left, right: t.right, tape: t.tape, guide: t.guide, retailers: retailers, cells: cells, boxes: boxes, tabs: tabs, panel: panels[current] };
+  }
+}
+</script>
+</body>
+</html>

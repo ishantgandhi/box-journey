@@ -1,13 +1,19 @@
 @import "tailwindcss";
 
-/* Placeholder tokens: these get replaced based on the images in reference/. */
+/* Tokens from reference/home-design.html */
 :root {
-  --background: #ffffff;
-  --text: #171717;
-  --muted: #6b7280;
-  --accent: #2563eb;
-  --font-body: var(--font-geist-sans), system-ui, sans-serif;
-  --font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --background: #f6f4f1;
+  --text: #141414;
+  --muted: #6e6a64;
+  --body: #5e5a54;
+  --accent: #e4c8a2;
+  --surface: #ffffff;
+  --dark: #161616;
+  --dark-muted: #a8a49d;
+  --border: #e6e2dc;
+  --line: #ece8e2;
+  --grid: #e3dfd8;
+  --font-body: var(--font-hanken), "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
@@ -17,12 +23,16 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --font-sans: var(--font-body);
-  --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--text);
   font-family: var(--font-body);
 }
+
+a { color: var(--text); }
+a:hover { color: #4a4a47; }
+#rr-search::placeholder { color: #8f8b84; }
