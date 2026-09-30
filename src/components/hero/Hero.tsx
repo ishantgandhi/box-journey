@@ -16,7 +16,7 @@ const button: CSSProperties = { display: "inline-flex", alignItems: "center", mi
 
 export function Hero() {
   return (
-    <section style={{ ...container, padding: "88px 24px 0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+    <section style={{ ...container, padding: "72px 24px 0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
       <a href="#flows" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 999, background: "#FFFFFF", ...mono, fontSize: 12, textDecoration: "none" }}>
         <span>139 retail flows built</span>
         <span style={{ padding: "5px 10px", borderRadius: 999, background: "#141414", color: "#FFFFFF" }}>See them</span>
@@ -28,7 +28,7 @@ export function Hero() {
         Meet the system enabling brands and 3PLs to achieve zero chargebacks while helping retailers process inbound shipments faster.
       </p>
       <div style={{ marginTop: 36, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 8, ...mono, fontSize: 14 }}>
-        <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Meet with us</a>
+        <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Try our platform</a>
         <a href="#flows" style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows (139)</a>
       </div>
 
