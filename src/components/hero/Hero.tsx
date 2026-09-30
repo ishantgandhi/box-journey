@@ -35,7 +35,7 @@ export function Hero() {
             </p>
             <div className="justify-center lg:justify-start" style={{ marginTop: "clamp(20px, 4.4vh, 36px)", display: "flex", flexWrap: "wrap", gap: 8, ...mono, fontSize: 14 }}>
               <a href={CAL_URL} style={{ ...button, background: "#141414", color: "#FFFFFF" }}>Try our platform</a>
-              <FlowsLink style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows ({TOTAL_FLOWS})</FlowsLink>
+              <FlowsLink showAll style={{ ...button, border: "1px solid #DCD8D1", background: "#FFFFFF", color: "#141414" }}>Show all flows ({TOTAL_FLOWS})</FlowsLink>
             </div>
           </div>
 

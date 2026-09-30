@@ -1,10 +1,16 @@
 "use client";
 
 import type { CSSProperties, ReactNode } from "react";
+import { SHOW_ALL_EVENT } from "@/components/RetailFlows";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
-/** Scrolls to the retail flows section and puts the cursor in its search box. */
-export function FlowsLink({ style, children }: { style: CSSProperties; children: ReactNode }) {
+type Props = { style: CSSProperties; children: ReactNode; showAll?: boolean };
+
+/**
+ * Scrolls to the retail flows section and puts the cursor in its search box,
+ * or with `showAll`, asks RetailFlows to open (and scroll to) the full list.
+ */
+export function FlowsLink({ style, children, showAll }: Props) {
   const reduced = usePrefersReducedMotion();
   return (
     <a
@@ -12,6 +18,7 @@ export function FlowsLink({ style, children }: { style: CSSProperties; children:
       style={style}
       onClick={(e) => {
         e.preventDefault();
+        if (showAll) return void window.dispatchEvent(new Event(SHOW_ALL_EVENT));
         document.getElementById("flows")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
         document.getElementById("rr-search")?.focus({ preventScroll: true });
       }}

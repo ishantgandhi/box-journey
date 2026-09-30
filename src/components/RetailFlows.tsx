@@ -7,6 +7,19 @@ import { CAL_URL, container, eyebrow, h2Size, mono, padY } from "@/lib/styles";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 const EXIT_MS = 200;
+const MAX_RESULTS = 8;
+export const SHOW_ALL_EVENT = "flows:show-all";
+
+// Full list, grouped by first letter for the "Show all flows" view
+const GROUPS = [...RETAILERS]
+  .sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }))
+  .reduce<[string, string[]][]>((groups, { name }) => {
+    const letter = name[0].toUpperCase();
+    const last = groups.at(-1);
+    if (last?.[0] === letter) last[1].push(name);
+    else groups.push([letter, [name]]);
+    return groups;
+  }, []);
 
 const darkEyebrow: CSSProperties = { ...eyebrow, color: "var(--dark-muted)" };
 const tile: CSSProperties = { display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "clamp(12px, 3vh, 44px)", minHeight: "clamp(96px, 14vh, 150px)", boxSizing: "border-box", padding: "clamp(14px, 2.4vh, 20px)", borderRadius: 16, textDecoration: "none" };
@@ -31,6 +44,9 @@ export function RetailFlows() {
   const [query, setQuery] = useState("");
   // Cards that just stopped matching; kept mounted for EXIT_MS so they can fade out
   const [leaving, setLeaving] = useState<string[]>([]);
+  const [expanded, setExpanded] = useState(false); // search results past MAX_RESULTS
+  const [showAll, setShowAll] = useState(false); // full alphabetical list
+  const scrollToList = useRef(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
@@ -41,18 +57,42 @@ export function RetailFlows() {
   const searching = query.trim() !== "";
   const matchesFor = (q: string) =>
     (q.trim() ? RETAILERS.filter((r) => matchRetailer(r.name, q)) : RETAILERS.filter((r) => r.featured)).map((r) => r.name);
+  const shownFor = (q: string, all: boolean) => (q.trim() && !all ? matchesFor(q).slice(0, MAX_RESULTS) : matchesFor(q));
   const matches = matchesFor(query);
+  const shown = shownFor(query, expanded);
+  const hiddenCount = matches.length - shown.length;
 
   function update(next: string) {
-    const nextMatches = matchesFor(next);
-    const gone = matches.filter((n) => !nextMatches.includes(n));
+    const nextShown = shownFor(next, false);
+    const gone = shown.filter((n) => !nextShown.includes(n));
     setQuery(next);
+    setExpanded(false);
     if (reduced || gone.length === 0) return;
     setLeaving((l) => [...l, ...gone]);
     timers.current.push(setTimeout(() => setLeaving((l) => l.filter((n) => !gone.includes(n))), EXIT_MS));
   }
 
-  const visible = RETAILERS.filter((r) => matches.includes(r.name) || leaving.includes(r.name));
+  const scrollBehavior = reduced ? "auto" : "smooth";
+
+  function openAll() {
+    scrollToList.current = true;
+    setShowAll(true);
+  }
+
+  // Scroll to the full list once it has rendered
+  useEffect(() => {
+    if (!showAll || !scrollToList.current) return;
+    scrollToList.current = false;
+    document.getElementById("all-flows")?.scrollIntoView({ behavior: scrollBehavior, block: "start" });
+  }, [showAll, scrollBehavior]);
+
+  // The hero "Show all flows" button opens the list from outside this component
+  useEffect(() => {
+    window.addEventListener(SHOW_ALL_EVENT, openAll);
+    return () => window.removeEventListener(SHOW_ALL_EVENT, openAll);
+  }, []);
+
+  const visible = RETAILERS.filter((r) => shown.includes(r.name) || leaving.includes(r.name));
   const noResults = searching && matches.length === 0;
 
   return (
@@ -99,7 +139,7 @@ export function RetailFlows() {
                 <button type="submit" style={{ minHeight: 48, padding: "0 20px", border: 0, borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 14, cursor: "pointer" }}>Search</button>
               </div>
               <span aria-live="polite" style={{ ...mono, fontSize: 12, color: "var(--dark-muted)" }}>
-                {searching ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}` : "Showing featured flows"}
+                {searching ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}` : `${TOTAL_FLOWS} flows`}
               </span>
             </form>
           </div>
@@ -109,10 +149,9 @@ export function RetailFlows() {
           </div>
         </div>
 
-
         <div className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-3 lg:grid-cols-4">
           {visible.map(({ name }) => {
-            const out = !matches.includes(name);
+            const out = !shown.includes(name);
             return (
               <a
                 key={name}
@@ -147,10 +186,16 @@ export function RetailFlows() {
               </a>
             </div>
           )}
-          <a href="#" style={{ ...tile, background: "var(--background)", color: "#141414" }}>
+          <button
+            type="button"
+            aria-expanded={showAll}
+            aria-controls="all-flows"
+            onClick={() => (showAll ? setShowAll(false) : openAll())}
+            style={{ ...tile, border: 0, background: "var(--background)", color: "#141414", font: "inherit", textAlign: "left", cursor: "pointer" }}
+          >
             <span style={tileTitle}>More retailers</span>
-            <span style={tileFoot}>Show all flows ({TOTAL_FLOWS})</span>
-          </a>
+            <span style={tileFoot}>{showAll ? "Hide full list" : `Show all flows (${TOTAL_FLOWS})`}</span>
+          </button>
           {!noResults && (
             <a href="#" style={dashedTile}>
               <span style={tileTitle}>Don&apos;t see yours?</span>
@@ -158,6 +203,49 @@ export function RetailFlows() {
             </a>
           )}
         </div>
+
+        {searching && hiddenCount > 0 && (
+          <button
+            type="button"
+            onClick={() => setExpanded(true)}
+            className="text-[#A8A49D] hover:text-[#F6F4F1]"
+            style={{ alignSelf: "flex-start", minHeight: 44, padding: 0, border: 0, background: "none", ...mono, fontSize: 13, cursor: "pointer" }}
+          >
+            + {hiddenCount} more {hiddenCount === 1 ? "match" : "matches"}
+          </button>
+        )}
+
+        {showAll && (
+          <div id="all-flows" className="card-in" style={{ scrollMarginTop: 88, display: "flex", flexDirection: "column", gap: 24, paddingTop: 24, borderTop: "1px solid #2E2E2C" }}>
+            <span style={darkEyebrow}>All {TOTAL_FLOWS} retail flows</span>
+            <div className="columns-2 gap-6 lg:columns-5">
+              {GROUPS.map(([letter, names]) => (
+                <div key={letter} className="break-inside-avoid" style={{ marginBottom: 18 }}>
+                  <h3 style={{ margin: "0 0 6px", ...mono, fontSize: 12, fontWeight: 500, color: "var(--dark-muted)" }}>{letter}</h3>
+                  <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                    {names.map((name) => (
+                      <li key={name} style={{ display: "flex", alignItems: "center", gap: 8, padding: "4px 0", fontSize: 14, lineHeight: 1.35 }}>
+                        <span aria-hidden="true" style={{ width: 6, height: 6, flexShrink: 0, borderRadius: 999, background: "#5FD08A" }} />
+                        {name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              aria-controls="all-flows"
+              onClick={() => {
+                setShowAll(false);
+                document.getElementById("flows")?.scrollIntoView({ behavior: scrollBehavior });
+              }}
+              style={{ alignSelf: "flex-start", minHeight: 44, padding: "0 18px", border: "1px solid #3A3A38", borderRadius: 10, background: "none", color: "var(--background)", ...mono, fontSize: 13, cursor: "pointer" }}
+            >
+              Show fewer
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
