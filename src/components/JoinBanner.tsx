@@ -1,9 +1,94 @@
+"use client";
+
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { CAL_URL, container, eyebrow, mono } from "@/lib/styles";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+
+const W = 72;
+const H = 36;
+const MAX_BOXES = 40;
+const HOLD_MS = 900;
+const FADE_MS = 450;
+
+// top, left, right, tape
+const TONES = [
+  ["#E4C8A2", "#CFAB80", "#B8915F", "#EFDCC0"],
+  ["#EDD6B4", "#D9B78D", "#C29C6C", "#F5E6CF"],
+  ["#D8B78C", "#C29A6B", "#A98050", "#E6CCA8"],
+];
+
+type Box = { id: string; cellX: number; cellY: number; phase: "in" | "out" };
+
+/**
+ * Diamond centers sit at (k*72, m*36) and (k*72+36, m*36+18). In the skewed coords
+ * u = x/72 + y/36, v = x/72 - y/36 every center lands on an integer point and each
+ * diamond becomes the unit square around it, so rounding finds the cell.
+ */
+function cellAt(x: number, y: number) {
+  const u = Math.round(x / W + y / H);
+  const v = Math.round(x / W - y / H);
+  const cx = (u + v) * (W / 2);
+  const cy = (u - v) * (H / 2);
+  return { id: `${u},${v}`, cellX: cx - W / 2, cellY: cy - H / 2 };
+}
+
+function toneFor(box: Box) {
+  const n = Math.round(box.cellX / (W / 2)) * 7 + Math.round(box.cellY / (H / 2)) * 13;
+  return TONES[((n % 3) + 3) % 3];
+}
 
 export function JoinBanner() {
+  const reduced = usePrefersReducedMotion();
+  const [boxes, setBoxes] = useState<Box[]>([]);
+  const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
+  const lastCell = useRef<string | null>(null);
+
+  useEffect(() => {
+    const t = timers.current;
+    return () => t.forEach(clearTimeout);
+  }, []);
+
+  function schedule(id: string) {
+    clearTimeout(timers.current.get(id));
+    timers.current.set(
+      id,
+      setTimeout(() => {
+        const remove = () => {
+          timers.current.delete(id);
+          setBoxes((bs) => bs.filter((b) => b.id !== id));
+        };
+        if (reduced) return remove();
+        setBoxes((bs) => bs.map((b) => (b.id === id ? { ...b, phase: "out" } : b)));
+        timers.current.set(id, setTimeout(remove, FADE_MS));
+      }, HOLD_MS),
+    );
+  }
+
+  function onPointerMove(e: PointerEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cell = cellAt(e.clientX - rect.left, e.clientY - rect.top);
+    if (cell.id === lastCell.current) return;
+    lastCell.current = cell.id;
+
+    const exists = timers.current.has(cell.id);
+    if (!exists && timers.current.size >= MAX_BOXES) return;
+    setBoxes((bs) =>
+      exists
+        ? bs.map((b) => (b.id === cell.id ? { ...b, phase: "in" } : b))
+        : [...bs, { ...cell, phase: "in" }],
+    );
+    schedule(cell.id);
+  }
+
+  const sorted = [...boxes].sort((a, b) => a.cellY - b.cellY || a.cellX - b.cellX);
+
   return (
     <section style={{ ...container, padding: "48px 24px 96px" }}>
-      <div style={{ position: "relative", minHeight: 400, borderRadius: 28, overflow: "hidden", background: "var(--dark)", color: "var(--background)" }}>
+      <div
+        onPointerMove={onPointerMove}
+        onPointerDown={onPointerMove}
+        onPointerLeave={() => (lastCell.current = null)}
+        style={{ position: "relative", minHeight: 400, borderRadius: 28, overflow: "hidden", background: "var(--dark)", color: "var(--background)" }}>
         <svg aria-hidden="true" width="1440" height="440" style={{ position: "absolute", left: 0, top: 0 }}>
           <defs>
             <pattern id="rr-iso" width="72" height="36" patternUnits="userSpaceOnUse">
@@ -13,8 +98,27 @@ export function JoinBanner() {
           <rect width="1440" height="440" fill="url(#rr-iso)" />
         </svg>
 
-        {/* TODO(hover): box layer goes here. Invisible 72x36 diamond cells over the grid;
-            hovering one pops a small kraft box onto it, which fades out after ~0.9s. */}
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+          {sorted.map((b) => {
+            const [top, left, right, tape] = toneFor(b);
+            return (
+              <svg
+                key={b.id}
+                className={reduced ? undefined : b.phase === "in" ? "rr-in" : "rr-out"}
+                width="90"
+                height="81"
+                viewBox="0 0 400 360"
+                fill="none"
+                style={{ position: "absolute", left: b.cellX - 9, top: b.cellY - 40 }}
+              >
+                <polygon points="200,40 360,120 200,200 40,120" fill={top} />
+                <polygon points="40,120 200,200 200,340 40,260" fill={left} />
+                <polygon points="200,200 360,120 360,260 200,340" fill={right} />
+                <polygon points="107.5,73.7 132.5,86.3 292.5,166.3 267.5,153.7" fill={tape} />
+              </svg>
+            );
+          })}
+        </div>
 
         <div style={{ position: "relative", minHeight: 400, boxSizing: "border-box", maxWidth: 640, padding: "clamp(28px, 6vw, 56px)", display: "flex", flexDirection: "column", justifyContent: "center", gap: 18, pointerEvents: "none" }}>
           <span style={{ ...eyebrow, color: "var(--dark-muted)" }}>06 / Get started</span>
