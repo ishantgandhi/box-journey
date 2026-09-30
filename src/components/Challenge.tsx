@@ -27,43 +27,31 @@ const grid = (min: number) => ({ display: "grid", gridTemplateColumns: `repeat(a
 
 export function Challenge() {
   return (
-    <>
-      <section id="challenge" className="screen">
-        <div style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(24px, 6vh, 56px)" }}>
-          <div style={{ ...grid(420), gap: "24px 64px", alignItems: "end" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
-              <span style={eyebrow}>02 / The challenge</span>
-              <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em", textWrap: "balance" }}>The Challenge of Retail Compliance</h2>
-            </div>
-            <p style={{ margin: 0, fontSize: 19, lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
-              Retailers have complex shipping requirements that lead to costly chargebacks. Here&apos;s how RetailReady solves this.
-            </p>
+    <section id="challenge" style={{ scrollMarginTop: 64 }}>
+      <div style={{ ...container, padding: `${padY} 24px`, display: "flex", flexDirection: "column", gap: "clamp(24px, 6vh, 56px)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(10px, 2vh, 16px)" }}>
+          <span style={eyebrow}>02 / The challenge</span>
+          <h2 style={{ margin: 0, fontSize: h2Size, lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em", textWrap: "balance" }}>The Challenge of Retail Compliance</h2>
+        </div>
+        <div style={{ ...grid(240), gap: 32 }}>
+          {problems.map(([v, l]) => <Stat key={l} value={v} label={l} size={statSize} />)}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 4.4vh, 40px)", padding: "clamp(24px, 4vh, 40px)", borderRadius: 24, background: "#FFFFFF", border: "1px solid var(--border)" }}>
+          <span style={eyebrow}>How RetailReady solves it</span>
+          <div style={{ ...grid(220), gap: 32 }}>
+            {solutions.map(([v, l]) => <Stat key={l} value={v} label={l} size={statSize} />)}
           </div>
-          <div style={{ ...grid(240), gap: 32 }}>
-            {problems.map(([v, l]) => <Stat key={l} value={v} label={l} size={statSize} />)}
+          <div style={{ ...grid(220), gap: "clamp(20px, 4vh, 32px) 32px", paddingTop: "clamp(18px, 3.4vh, 32px)", borderTop: "1px solid var(--line)" }}>
+            {features.map(([t, d], i) => (
+              <div key={t} style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 1.2vh, 10px)" }}>
+                <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{String(i + 1).padStart(2, "0")}</span>
+                <span style={{ fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em" }}>{t}</span>
+                <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--body)" }}>{d}</span>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-
-      <section id="solution" className="screen">
-        <div style={{ ...container, padding: `${padY} 24px` }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "clamp(20px, 4.4vh, 40px)", padding: "clamp(24px, 4vh, 40px)", borderRadius: 24, background: "#FFFFFF", border: "1px solid var(--border)" }}>
-            <span style={eyebrow}>How RetailReady solves it</span>
-            <div style={{ ...grid(220), gap: 32 }}>
-              {solutions.map(([v, l]) => <Stat key={l} value={v} label={l} size={statSize} />)}
-            </div>
-            <div style={{ ...grid(220), gap: "clamp(20px, 4vh, 32px) 32px", paddingTop: "clamp(18px, 3.4vh, 32px)", borderTop: "1px solid var(--line)" }}>
-              {features.map(([t, d], i) => (
-                <div key={t} style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 1.2vh, 10px)" }}>
-                  <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{String(i + 1).padStart(2, "0")}</span>
-                  <span style={{ fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em" }}>{t}</span>
-                  <span style={{ fontSize: 15, lineHeight: 1.55, color: "var(--body)" }}>{d}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

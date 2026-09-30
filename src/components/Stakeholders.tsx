@@ -78,13 +78,14 @@ export function Stakeholders() {
         </div>
       </div>
 
-      <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="grid gap-10 min-[900px]:grid-cols-2 min-[900px]:gap-12" style={{ alignItems: "start" }}>
-        <div style={{ position: "relative", width: "min(100%, calc((58vh - 68px) * 1.6 + 40px))", maxHeight: "70vh", justifySelf: "end", padding: 20, borderRadius: 24, background: "var(--line)", overflow: "hidden" }}>
+      <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="grid gap-10 min-[900px]:grid-cols-2 min-[900px]:gap-12">
+        {/* Stretches to the height of the text column on desktop */}
+        <div style={{ display: "flex", flexDirection: "column", padding: 20, borderRadius: 24, background: "var(--line)" }}>
           <span key={tab} className="fade-up" style={{ display: "block", marginBottom: 14, ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" }}>
             {panel.shot.label}
           </span>
           {/* All three stay mounted so they load up front and crossfade without a flash */}
-          <div style={{ position: "relative", aspectRatio: "16 / 10", borderRadius: 12, border: "1px solid var(--grid)", overflow: "hidden", background: "#FFFFFF", boxShadow: "0 20px 50px rgba(20,20,20,0.10)" }}>
+          <div className="aspect-[16/10] min-[900px]:aspect-auto min-[900px]:flex-1" style={{ position: "relative", borderRadius: 12, border: "1px solid var(--grid)", overflow: "hidden", background: "#FFFFFF", boxShadow: "0 20px 50px rgba(20,20,20,0.10)" }}>
             {keys.map((key) => {
               const active = key === tab;
               return (
@@ -102,7 +103,6 @@ export function Stakeholders() {
               );
             })}
           </div>
-          <div aria-hidden="true" style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "30%", background: "linear-gradient(to bottom, rgba(236,232,226,0), var(--line))", pointerEvents: "none" }} />
         </div>
 
         <div key={tab} className="fade-up min-[900px]:order-first" style={{ display: "flex", flexDirection: "column", gap: "clamp(14px, 3vh, 28px)" }}>

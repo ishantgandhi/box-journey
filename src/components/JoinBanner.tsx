@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { Box, KRAFT_TONES } from "@/components/illustrations/Box";
 import { CAL_URL, container, eyebrow, mono } from "@/lib/styles";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
@@ -10,14 +11,8 @@ const MAX_BOXES = 40;
 const HOLD_MS = 900;
 const FADE_MS = 450;
 
-// top, left, right, tape
-const TONES = [
-  ["#E4C8A2", "#CFAB80", "#B8915F", "#EFDCC0"],
-  ["#EDD6B4", "#D9B78D", "#C29C6C", "#F5E6CF"],
-  ["#D8B78C", "#C29A6B", "#A98050", "#E6CCA8"],
-];
 
-type Box = { id: string; cellX: number; cellY: number; phase: "in" | "out" };
+type HoverBox = { id: string; cellX: number; cellY: number; phase: "in" | "out" };
 
 /**
  * Diamond centers sit at (k*72, m*36) and (k*72+36, m*36+18). In the skewed coords
@@ -32,14 +27,14 @@ function cellAt(x: number, y: number) {
   return { id: `${u},${v}`, cellX: cx - W / 2, cellY: cy - H / 2 };
 }
 
-function toneFor(box: Box) {
+function toneFor(box: HoverBox) {
   const n = Math.round(box.cellX / (W / 2)) * 7 + Math.round(box.cellY / (H / 2)) * 13;
-  return TONES[((n % 3) + 3) % 3];
+  return KRAFT_TONES[((n % 3) + 3) % 3];
 }
 
 export function JoinBanner() {
   const reduced = usePrefersReducedMotion();
-  const [boxes, setBoxes] = useState<Box[]>([]);
+  const [boxes, setBoxes] = useState<HoverBox[]>([]);
   const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
   const lastCell = useRef<string | null>(null);
 
@@ -100,7 +95,6 @@ export function JoinBanner() {
 
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           {sorted.map((b) => {
-            const [top, left, right, tape] = toneFor(b);
             return (
               <svg
                 key={b.id}
@@ -111,10 +105,7 @@ export function JoinBanner() {
                 fill="none"
                 style={{ position: "absolute", left: b.cellX - 9, top: b.cellY - 40 }}
               >
-                <polygon points="200,40 360,120 200,200 40,120" fill={top} />
-                <polygon points="40,120 200,200 200,340 40,260" fill={left} />
-                <polygon points="200,200 360,120 360,260 200,340" fill={right} />
-                <polygon points="107.5,73.7 132.5,86.3 292.5,166.3 267.5,153.7" fill={tape} />
+                <Box tone={toneFor(b)} />
               </svg>
             );
           })}
