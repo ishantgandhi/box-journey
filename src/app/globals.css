@@ -97,3 +97,8 @@ body {
 }
 .how-desc { display: grid; }
 .how-desc > span { overflow: hidden; min-height: 0; }
+
+/* Hero box: parts the load animation brings in start hidden (reduced motion shows the final state) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-anim .hb-hide { opacity: 0; }
+}

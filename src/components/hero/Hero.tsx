@@ -3,18 +3,8 @@ import { BrandStrip } from "@/components/BrandStrip";
 import { FlowsLink } from "@/components/FlowsLink";
 import { BoxIllustration } from "@/components/illustrations/BoxIllustration";
 import { TOTAL_FLOWS } from "@/data/retailers";
-import { CAL_URL, container, gridBg, mono, padY } from "@/lib/styles";
+import { CAL_URL, container, mono, padY } from "@/lib/styles";
 
-const cardLabel: CSSProperties = { ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" };
-const card: CSSProperties = {
-  position: "absolute",
-  flexDirection: "column",
-  border: "1px solid var(--border)",
-  borderRadius: 14,
-  background: "#FFFFFF",
-  textAlign: "left",
-  boxShadow: "0 14px 30px rgba(20,20,20,0.06)",
-};
 const button: CSSProperties = { display: "inline-flex", alignItems: "center", minHeight: 48, padding: "0 22px", borderRadius: 10, textDecoration: "none" };
 
 export function Hero() {
@@ -48,22 +38,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div style={{ position: "relative", width: "100%", height: "clamp(260px, 50vh, 420px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div aria-hidden="true" style={gridBg(25, 70)} />
-            <div className="flex max-sm:hidden" style={{ ...card, left: 0, top: "3%", transform: "rotate(-3deg)", gap: 6, padding: "14px 18px", zIndex: 1 }}>
-              <span style={cardLabel}>Walmart&apos;s routing guide</span>
-              <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.03em" }}>399 pages</span>
-              <span style={cardLabel}>Read for you</span>
-            </div>
-            <BoxIllustration width={280} height={252} style={{ width: "min(38vh, 320px, 80vw)", height: "auto" }} label="A cardboard box with its shipping label about to be placed" />
-            <div className="flex max-sm:hidden" style={{ ...card, right: 0, bottom: "5%", transform: "rotate(2deg)", width: 200, boxSizing: "border-box", gap: 8, padding: "14px 16px", zIndex: 1 }}>
-              <span style={cardLabel}>Current step</span>
-              <span style={{ fontSize: 17, fontWeight: 500, letterSpacing: "-0.02em" }}>Guided Packaging Process</span>
-              <div style={{ height: 4, borderRadius: 2, background: "var(--line)", overflow: "hidden" }}>
-                <div style={{ width: "60%", height: "100%", background: "#141414" }} />
-              </div>
-            </div>
-          </div>
+          <BoxIllustration />
         </div>
       </div>
       <BrandStrip />
