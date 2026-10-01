@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 
 export const metadata: Metadata = {
-  title: "RetailReady Roundup",
+  title: { absolute: "RetailReady Roundup" },
   description: "Compliance updates, platform news, and partner highlights.",
 };
 

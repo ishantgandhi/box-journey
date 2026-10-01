@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 
 export const metadata: Metadata = {
-  title: "About | RetailReady",
+  title: "About",
   description: "The team building an AI-powered supply chain compliance engine in San Francisco.",
 };
 

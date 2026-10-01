@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Nav } from "@/components/layout/Nav";
 
 export const metadata: Metadata = {
-  title: "Case Studies | RetailReady",
+  title: "Case Studies",
   description: "How brands and 3PLs reach zero chargebacks with RetailReady.",
 };
 

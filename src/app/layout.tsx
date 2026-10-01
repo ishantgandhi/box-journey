@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RetailReady",
+  title: { default: "RetailReady", template: "%s | RetailReady" },
   description: "Retail compliance, handled. Concept redesign of the RetailReady site.",
 };
 

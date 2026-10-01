@@ -68,7 +68,7 @@ export function BoxIllustration() {
       <div aria-hidden="true" style={gridBg(25, 70)} />
       <div className="hb-card hb-hide flex max-sm:hidden" style={{ ...card, left: 0, top: "3%", transform: "rotate(-3deg)", gap: 6, padding: "14px 18px" }}>
         <span style={cardLabel}>Walmart&apos;s routing guide</span>
-        <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.03em" }}>300+ pages</span>
+        <span style={{ fontSize: 24, fontWeight: 500, letterSpacing: "-0.03em" }}>399 pages</span>
         <span style={cardLabel}>Read for you</span>
       </div>
 
