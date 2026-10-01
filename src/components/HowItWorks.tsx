@@ -115,7 +115,7 @@ export function HowItWorks() {
             const on = i === active;
             const color = on ? "#141414" : "var(--muted)";
             return (
-              <li key={title} ref={(el) => void (stepRefs.current[i] = el)} className="min-h-[40vh] last:min-h-0 lg:min-h-0">
+              <li key={title} ref={(el) => void (stepRefs.current[i] = el)}>
                 <button
                   type="button"
                   aria-current={on ? "step" : undefined}

@@ -116,7 +116,7 @@ body {
 
 /* How it works: stage pinned above the steps on mobile, beside them on desktop */
 .how-grid { display: flex; flex-direction: column; gap: 24px; }
-.how-stage { position: sticky; top: 64px; z-index: 10; height: 42vh; padding: 8px 0 12px; background: #ffffff; }
+.how-stage { position: sticky; top: 64px; z-index: 10; height: 42svh; padding: 8px 0 12px; background: #ffffff; }
 @media (min-width: 1024px) {
   .how-grid {
     display: grid;
