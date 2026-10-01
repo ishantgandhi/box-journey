@@ -161,7 +161,7 @@ export function Nav() {
           <a href={CAL_URL} className="btn px-3 text-[13px] max-[400px]:text-xs min-[900px]:px-[18px]" style={cta}>Try our platform</a>
           <button
             type="button"
-            className="flex min-[900px]:hidden"
+            className="icon-btn flex min-[900px]:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}

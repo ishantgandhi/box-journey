@@ -146,7 +146,7 @@ export function RetailFlows() {
                     </button>
                   )}
                 </div>
-                <button type="submit" style={{ minHeight: 48, padding: "0 20px", border: 0, borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 14, cursor: "pointer" }}>Search</button>
+                <button type="submit" className="btn" style={{ minHeight: 48, padding: "0 20px", border: 0, borderRadius: 10, background: "var(--background)", color: "#141414", ...mono, fontSize: 14, cursor: "pointer" }}>Search</button>
               </div>
               <span aria-live="polite" style={{ ...mono, fontSize: 12, color: "var(--dark-muted)" }}>
                 {searching ? `${matches.length} ${matches.length === 1 ? "match" : "matches"}` : `${TOTAL_FLOWS} flows`}
