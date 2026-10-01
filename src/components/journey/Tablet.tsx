@@ -127,8 +127,11 @@ function screens(step: number): ReactNode[] {
 /** Warehouse tablet whose screen crossfades between one state per step */
 export function Tablet({ step }: { step: number }) {
   const current = Math.max(step, 0);
+  // Scaled down on small screens with a transform (not CSS zoom, which Safari applies unevenly to inline SVGs);
+  // the wrapper reserves the scaled size: 250x317 at 0.62
   return (
-    <div className="max-lg:[zoom:0.62]" style={{ position: "relative", width: 250, flexShrink: 0, boxSizing: "border-box", padding: 12, border: "1.5px solid #141414", borderRadius: 26, background: "#FFFFFF" }}>
+    <div className="max-lg:h-[197px] max-lg:w-[155px]" style={{ flexShrink: 0 }}>
+    <div className="max-lg:origin-top-left max-lg:scale-[0.62]" style={{ position: "relative", width: 250, boxSizing: "border-box", padding: 12, border: "1.5px solid #141414", borderRadius: 26, background: "#FFFFFF" }}>
       <div style={{ position: "relative", height: 290, border: "1px solid var(--line)", borderRadius: 16, overflow: "hidden" }}>
         {screens(step).map((content, i) => (
           <div
@@ -141,6 +144,7 @@ export function Tablet({ step }: { step: number }) {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }
