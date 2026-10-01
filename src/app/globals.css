@@ -60,7 +60,8 @@ body {
 /* Shared linked-card lift and arrow movement */
 .flow-card,
 .case-study-card,
-.partner-card {
+.partner-card,
+.press-card {
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 .flow-arrow { flex-shrink: 0; transition: transform 180ms ease; }
@@ -70,14 +71,16 @@ body {
 @media (hover: hover) {
   .flow-card:hover,
   .case-study-card:hover,
-  .partner-card:hover {
+  .partner-card:hover,
+  .press-card:hover {
     transform: translateY(-4px);
     border-color: #d4cfc7 !important;
     box-shadow: 0 14px 28px rgba(20, 20, 20, 0.08);
   }
   .flow-card:hover .flow-arrow,
   .case-study-card:hover .flow-arrow,
-  .partner-card:hover .flow-arrow { transform: translate(2px, -2px); }
+  .partner-card:hover .flow-arrow,
+  .press-card:hover .flow-arrow { transform: translate(2px, -2px); }
   .featured-video:hover img,
   .case-study-card:hover img { transform: scale(1.025); }
   .featured-video:hover .featured-play { transform: scale(1.06); }
@@ -86,6 +89,7 @@ body {
   .flow-card,
   .case-study-card,
   .partner-card,
+  .press-card,
   .flow-arrow,
   .featured-video img,
   .case-study-card img,

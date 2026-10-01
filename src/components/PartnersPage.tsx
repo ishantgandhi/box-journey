@@ -36,6 +36,65 @@ function CheckIcon() {
   );
 }
 
+// Spots around the hero copy, kept to the outer columns so they never cover the text
+const BADGES: { name: string; spot: CSSProperties; rotate: number }[] = [
+  { name: "Atomix", spot: { left: "2%", top: "16%" }, rotate: -6 },
+  { name: "Deliverzen", spot: { left: "7%", top: "44%" }, rotate: 4 },
+  { name: "GoBolt", spot: { left: "1%", top: "72%" }, rotate: -3 },
+  { name: "Manifest", spot: { left: "15%", top: "88%" }, rotate: 5 },
+  { name: "Radial", spot: { right: "3%", top: "14%" }, rotate: 5 },
+  { name: "Mountainy", spot: { right: "5%", top: "45%" }, rotate: -4 },
+  { name: "All Points", spot: { right: "1%", top: "68%" }, rotate: 3 },
+  { name: "Ships-a-Lot", spot: { right: "14%", top: "88%" }, rotate: -5 },
+];
+
+function HeroBadges() {
+  const layer = useRef<HTMLDivElement>(null);
+
+  useMotion(() => {
+    const box = layer.current!.getBoundingClientRect();
+    const cx = box.left + box.width / 2;
+    const cy = box.top + box.height / 2;
+    const badges = gsap.utils.toArray<HTMLElement>(".hero-badge", layer.current);
+    // Start each badge at the center of the hero, then burst out to its spot
+    const offset = (el: HTMLElement) => {
+      const r = el.getBoundingClientRect();
+      return { x: cx - (r.left + r.width / 2), y: cy - (r.top + r.height / 2) };
+    };
+    gsap.from(badges, {
+      x: (_, el) => offset(el).x,
+      y: (_, el) => offset(el).y,
+      scale: 0.3,
+      opacity: 0,
+      duration: 0.9,
+      delay: 0.35,
+      stagger: 0.07,
+      ease: "back.out(1.4)",
+    });
+    badges.forEach((el, i) => {
+      gsap.to(el.firstElementChild, { y: i % 2 ? 8 : -8, duration: 2.4 + (i % 3) * 0.5, delay: 1.3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    });
+  }, layer);
+
+  return (
+    <div ref={layer} aria-hidden="true" className="hidden lg:block" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+      {BADGES.map(({ name, spot, rotate }) => {
+        const partner = PARTNERS.find((p) => p.name === name)!;
+        return (
+          <div key={name} className="hero-badge" style={{ position: "absolute", ...spot }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 12px 6px 6px", border: "1px solid var(--border)", borderRadius: 999, background: "#FFFFFF", boxShadow: "0 10px 24px rgba(20,20,20,0.07)", transform: `rotate(${rotate}deg)`, whiteSpace: "nowrap" }}>
+              <span style={{ position: "relative", width: 28, height: 28, overflow: "hidden", borderRadius: 999, border: "1px solid var(--line)" }}>
+                <Image src={partner.logo} alt="" fill sizes="28px" style={{ objectFit: "contain", padding: 3 }} />
+              </span>
+              <span style={{ fontSize: 14, fontWeight: 500, letterSpacing: "-0.01em" }}>{name}</span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function PartnersPage() {
   const cardGrid = useRef<HTMLDivElement>(null);
 
@@ -55,8 +114,9 @@ export function PartnersPage() {
 
   return (
     <main>
-      <section style={{ ...container, padding: "clamp(56px, 10vh, 112px) 24px clamp(72px, 10vw, 120px)", textAlign: "center" }}>
-        <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <section className="screen" style={{ ...container, position: "relative", padding: "clamp(56px, 10vh, 112px) 24px", textAlign: "center" }}>
+        <HeroBadges />
+        <Reveal style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
           <span style={eyebrow}>Certified partner program</span>
           <h1 style={{ maxWidth: 900, margin: 0, fontSize: "clamp(40px, 7vw, 80px)", lineHeight: 0.98, fontWeight: 500, letterSpacing: "-0.055em", textWrap: "balance" }}>
             RetailReady Certified 3PL Partners
@@ -126,23 +186,28 @@ export function PartnersPage() {
         </div>
       </section>
 
-      <IsoBoxField style={{ marginBottom: 48 }}>
-        <section style={{ ...container, position: "relative", padding: "clamp(72px, 10vw, 128px) 24px", pointerEvents: "none" }}>
-          <Reveal style={{ maxWidth: 760, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 20 }}>
-            <span style={{ ...eyebrow, color: "var(--dark-muted)" }}>The network</span>
-            <p style={{ margin: 0, fontSize: "clamp(20px, 2.4vw, 24px)", lineHeight: 1.4, letterSpacing: "-0.02em", textWrap: "pretty" }}>
-              Hundreds of brands use RetailReady. When they need a 3PL, this is where we send them.
-            </p>
-            <h2 style={{ ...h2, fontSize: "clamp(40px, 7vw, 76px)", lineHeight: 1, letterSpacing: "-0.05em" }}>Your competitors are already Certified.</h2>
-            <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: "#A8A49D", textWrap: "pretty" }}>
-              Brands are choosing 3PLs that guarantee compliance. Don&apos;t get left behind.
-            </p>
-            <a href={PARTNER_URL} target="_blank" rel="noreferrer" className="btn" style={{ ...button, marginTop: 8, pointerEvents: "auto", background: "var(--background)", color: "#141414" }}>
+      <section style={{ ...container, padding: "48px 24px 96px" }}>
+        <IsoBoxField style={{ minHeight: 400, borderRadius: 28 }}>
+          <div style={{ position: "relative", minHeight: 400, boxSizing: "border-box", maxWidth: 640, padding: "clamp(28px, 6vw, 56px)", display: "flex", flexDirection: "column", justifyContent: "center", gap: 18, pointerEvents: "none" }}>
+            <Reveal style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+              <span style={{ ...eyebrow, color: "var(--dark-muted)" }}>The network</span>
+              <p style={{ margin: 0, fontSize: "clamp(19px, 2.4vw, 24px)", lineHeight: 1.4, letterSpacing: "-0.02em", textWrap: "pretty" }}>
+                Hundreds of brands use RetailReady. When they need a 3PL, this is where we send them.
+              </p>
+              <h2 style={{ margin: 0, fontSize: "clamp(34px, 6vw, 50px)", lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.04em" }}>Your competitors are already Certified.</h2>
+              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.6, color: "#A8A49D", textWrap: "pretty" }}>
+                Brands are choosing 3PLs that guarantee compliance. Don&apos;t get left behind.
+              </p>
+            </Reveal>
+            <a href={PARTNER_URL} target="_blank" rel="noreferrer" className="btn" style={{ ...button, alignSelf: "flex-start", pointerEvents: "auto", background: "var(--background)", color: "#141414" }}>
               Work With Us
             </a>
-          </Reveal>
-        </section>
-      </IsoBoxField>
+          </div>
+          <span className="max-sm:hidden" style={{ position: "absolute", right: 24, bottom: 20, ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: "#8F8B84", pointerEvents: "none" }}>
+            Move your cursor
+          </span>
+        </IsoBoxField>
+      </section>
     </main>
   );
 }

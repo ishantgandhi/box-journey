@@ -25,7 +25,7 @@ const menus = [
   {
     label: "Company",
     links: [
-      { label: "About", href: "#" },
+      { label: "About", href: "/about" },
       { label: "Roundup", href: "#" },
       { label: "Careers", href: "#" },
     ],
