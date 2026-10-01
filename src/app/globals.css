@@ -57,6 +57,37 @@ body {
 .card-out { animation: cardout 200ms ease-in both; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .card-in, .card-out { animation: none; } }
 
+/* Shared linked-card lift and arrow movement */
+.flow-card,
+.case-study-card {
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.flow-arrow { flex-shrink: 0; transition: transform 180ms ease; }
+.featured-video img,
+.case-study-card img { transition: transform 300ms ease; }
+.featured-play { transition: transform 180ms ease; }
+@media (hover: hover) {
+  .flow-card:hover,
+  .case-study-card:hover {
+    transform: translateY(-4px);
+    border-color: #d4cfc7 !important;
+    box-shadow: 0 14px 28px rgba(20, 20, 20, 0.08);
+  }
+  .flow-card:hover .flow-arrow,
+  .case-study-card:hover .flow-arrow { transform: translate(2px, -2px); }
+  .featured-video:hover img,
+  .case-study-card:hover img { transform: scale(1.025); }
+  .featured-video:hover .featured-play { transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-card,
+  .case-study-card,
+  .flow-arrow,
+  .featured-video img,
+  .case-study-card img,
+  .featured-play { transition: none; }
+}
+
 /* Full-screen sections on laptop/desktop; natural flow on small or very short screens */
 .screen { scroll-margin-top: 64px; }
 @media (min-width: 1024px) and (min-height: 560px) {

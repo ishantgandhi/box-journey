@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/illustrations/Logo";
 import { CAL_URL, container, mono } from "@/lib/styles";
@@ -17,7 +18,7 @@ const menus = [
   {
     label: "Customers",
     links: [
-      { label: "Case Studies", href: "#" },
+      { label: "Case Studies", href: "/case-studies" },
       { label: "Certified 3PLs", href: "#" },
     ],
   },
@@ -42,6 +43,7 @@ function Chevron({ open }: { open: boolean }) {
 const cta = { display: "inline-flex", alignItems: "center", height: 44, borderRadius: 10, background: "#141414", color: "#FFFFFF", textDecoration: "none", ...mono, whiteSpace: "nowrap" } as const;
 
 export function Nav() {
+  const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -93,6 +95,7 @@ export function Nav() {
         <nav aria-label="Main" className="hidden min-[900px]:flex" style={{ gap: 8, fontSize: 15 }}>
           {menus.map((m) => {
             const open = openMenu === m.label;
+            const active = m.links.some((link) => link.href.startsWith("/") && pathname === link.href);
             const id = `menu-${m.label.toLowerCase()}`;
             return (
               <div
@@ -107,7 +110,7 @@ export function Nav() {
                   aria-controls={id}
                   onClick={() => setOpenMenu(open ? null : m.label)}
                   className="text-[#5E5A54] hover:text-[#141414]"
-                  style={{ display: "flex", alignItems: "center", gap: 6, height: 44, padding: "0 10px", border: 0, background: "none", font: "inherit", cursor: "pointer", color: open ? "#141414" : undefined }}
+                  style={{ display: "flex", alignItems: "center", gap: 6, height: 44, padding: "0 10px", border: 0, background: "none", font: "inherit", cursor: "pointer", color: open || active ? "#141414" : undefined }}
                 >
                   {m.label}
                   <Chevron open={open} />
@@ -115,17 +118,20 @@ export function Nav() {
                 {open && (
                   <div id={id} style={{ position: "absolute", top: "100%", left: 0, paddingTop: 6 }}>
                     <div style={{ minWidth: 200, padding: 6, display: "flex", flexDirection: "column", background: "#FFFFFF", border: "1px solid var(--border)", borderRadius: 14, boxShadow: "0 14px 30px rgba(20,20,20,0.08)" }}>
-                      {m.links.map((l) => (
-                        <a
+                      {m.links.map((l) => {
+                        const linkActive = l.href.startsWith("/") && pathname === l.href;
+                        return (
+                        <Link
                           key={l.label}
                           href={l.href}
+                          aria-current={linkActive ? "page" : undefined}
                           onClick={() => setOpenMenu(null)}
                           className="text-[#5E5A54] hover:bg-[#F6F4F1] hover:text-[#141414]"
-                          style={{ padding: "10px 12px", borderRadius: 9, textDecoration: "none" }}
+                          style={{ padding: "10px 12px", borderRadius: 9, background: linkActive ? "#F6F4F1" : undefined, color: linkActive ? "#141414" : undefined, textDecoration: "none" }}
                         >
                           {l.label}
-                        </a>
-                      ))}
+                        </Link>
+                      )})}
                     </div>
                   </div>
                 )}
@@ -159,9 +165,9 @@ export function Nav() {
               <div key={m.label} style={{ display: "flex", flexDirection: "column" }}>
                 <span style={{ ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", padding: "8px 0" }}>{m.label}</span>
                 {m.links.map((l) => (
-                  <a key={l.label} href={l.href} onClick={() => setMobileOpen(false)} style={{ padding: "10px 0", fontSize: 18, textDecoration: "none" }}>
+                  <Link key={l.label} href={l.href} aria-current={l.href.startsWith("/") && pathname === l.href ? "page" : undefined} onClick={() => setMobileOpen(false)} style={{ padding: "10px 0", fontSize: 18, fontWeight: l.href.startsWith("/") && pathname === l.href ? 600 : undefined, textDecoration: "none" }}>
                     {l.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             ))}
