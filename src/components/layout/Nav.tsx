@@ -19,7 +19,7 @@ const menus = [
     label: "Customers",
     links: [
       { label: "Case Studies", href: "/case-studies" },
-      { label: "Certified 3PLs", href: "#" },
+      { label: "Certified 3PLs", href: "/partners" },
     ],
   },
   {
