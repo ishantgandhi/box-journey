@@ -4,7 +4,7 @@ import { CAREERS_URL, container, mono } from "@/lib/styles";
 const links = [
   { label: "Privacy", href: "#" },
   { label: "Terms", href: "#" },
-  { label: "Roundup", href: "#" },
+  { label: "Roundup", href: "/newsletter" },
   { label: "Careers", href: CAREERS_URL },
 ];
 const meta = { ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" } as const;
