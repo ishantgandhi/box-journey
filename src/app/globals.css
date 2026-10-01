@@ -77,7 +77,6 @@ body {
     border-color: #d4cfc7 !important;
     box-shadow: 0 14px 28px rgba(20, 20, 20, 0.08);
   }
-  .flow-card:hover .flow-arrow,
   .case-study-card:hover .flow-arrow,
   .partner-card:hover .flow-arrow,
   .press-card:hover .flow-arrow { transform: translate(2px, -2px); }

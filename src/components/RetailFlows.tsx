@@ -163,27 +163,20 @@ export function RetailFlows() {
           {visible.map(({ name }, i) => {
             const out = !shown.includes(name);
             return (
-              <a
+              <div
                 key={name}
-                href="#"
                 aria-hidden={out || undefined}
-                tabIndex={out ? -1 : undefined}
                 className={`flow-card ${out ? "card-out" : "card-in"}`}
                 style={{ ...tile, border: "1px solid #2E2E2C", background: "#1F1F1E", color: "var(--background)" }}
               >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
-                  <span style={tileTitle}>
-                    <Highlighted name={name} range={searching ? matchRetailer(name, query) : null} />
-                  </span>
-                  <svg className="flow-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                    <path d="M5 13L13 5M6.5 5H13v6.5" stroke="#A8A49D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
+                <span style={tileTitle}>
+                  <Highlighted name={name} range={searching ? matchRetailer(name, query) : null} />
+                </span>
                 <span style={{ ...tileFoot, display: "flex", alignItems: "center", gap: 8, color: "var(--dark-muted)" }}>
                   <span className="live-dot" style={{ width: 7, height: 7, borderRadius: 999, background: "#5FD08A", animationDelay: `${-i * 0.37}s` }} />
                   Flow live
                 </span>
-              </a>
+              </div>
             );
           })}
           {noResults && visible.length === 0 && (
@@ -207,7 +200,7 @@ export function RetailFlows() {
             <span style={tileFoot}>{showAll ? "Hide full list" : `Show all flows (${TOTAL_FLOWS})`}</span>
           </button>
           {!noResults && (
-            <a href="#" style={dashedTile}>
+            <a href="https://cal.com/team/retailready/retailready-intro-meeting?month=2026-10&date=2026-10-05" target="_blank" rel="noreferrer" style={dashedTile}>
               <span style={tileTitle}>Don&apos;t see yours?</span>
               <span style={{ ...tileFoot, color: "var(--dark-muted)" }}>Ask us about it</span>
             </a>
