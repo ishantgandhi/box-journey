@@ -1,6 +1,7 @@
 "use client";
 
 import gsap from "gsap";
+import Image from "next/image";
 import { useRef, type CSSProperties } from "react";
 import { IsoBoxField } from "@/components/IsoBoxField";
 import { PARTNERS } from "@/data/partners";
@@ -113,7 +114,12 @@ export function PartnersPage() {
                 </span>
                 <ArrowIcon />
               </div>
-              <h3 style={{ margin: "auto 0 0", fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em" }}>{p.name}</h3>
+              <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 12 }}>
+                <span style={{ position: "relative", width: 40, height: 40, flexShrink: 0, overflow: "hidden", border: "1px solid var(--border)", borderRadius: 10, background: "#FFFFFF" }}>
+                  <Image src={p.logo} alt="" fill sizes="40px" style={{ objectFit: "contain", padding: 5 }} />
+                </span>
+                <h3 style={{ margin: 0, fontSize: 20, fontWeight: 500, letterSpacing: "-0.02em" }}>{p.name}</h3>
+              </div>
               <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, color: "#5E5A54", textWrap: "pretty" }}>{p.description}</p>
             </a>
           ))}

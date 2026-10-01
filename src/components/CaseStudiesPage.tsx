@@ -9,7 +9,7 @@ import { CASE_STUDIES } from "@/data/caseStudies";
 import { Reveal, playOnceInView, useMotion } from "@/lib/motion";
 import { container, eyebrow, mono } from "@/lib/styles";
 
-const FEATURED_URL = "https://youtu.be/7p1Cc3mQu84";
+const FEATURED_URL = "https://www.youtube.com/watch?v=7p1Cc3mQu84";
 
 function ArrowIcon() {
   return (
@@ -103,7 +103,7 @@ export function CaseStudiesPage() {
           </h2>
         </Reveal>
 
-        <div ref={cardGrid} className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-3">
+        <div ref={cardGrid} className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {CASE_STUDIES.map((study) => (
             <a
               key={study.company}
