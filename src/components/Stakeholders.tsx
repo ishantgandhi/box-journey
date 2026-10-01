@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
+import { ArrowLeftRight, Camera, ClipboardList, FileUp, LayoutDashboard, ListChecks, PackageCheck, ScanSearch, ShieldCheck, Timer, TrendingUp, Truck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Reveal, useMotion } from "@/lib/motion";
 import { container, eyebrow, h2Size, mono, padY } from "@/lib/styles";
@@ -14,10 +15,10 @@ const panels = {
     heading: "Streamline Your Operations",
     blurb: "Our user-friendly mobile application ensures operational shipping compliance to retailers. It turns routing guides into step-by-step tasks and keeps a visual repository of every order for dispute resolution.",
     cards: [
-      { i: "A", t: "Smart Packout Flow", d: "Mobile-first compliance solution with AI-powered instructions" },
-      { i: "B", t: "Task Management", d: "Prioritized daily workflows with real-time tracking" },
-      { i: "C", t: "EDI Services", d: "Automated document exchange and compliance validation" },
-      { i: "D", t: "Automated ASN", d: "Streamlined shipping notices with multi-carrier support" },
+      { Icon: PackageCheck, t: "Smart Packout Flow", d: "Mobile-first compliance solution with AI-powered instructions" },
+      { Icon: ListChecks, t: "Task Management", d: "Prioritized daily workflows with real-time tracking" },
+      { Icon: ArrowLeftRight, t: "EDI Services", d: "Automated document exchange and compliance validation" },
+      { Icon: Truck, t: "Automated ASN", d: "Streamlined shipping notices with multi-carrier support" },
     ],
   },
   brands: {
@@ -26,10 +27,10 @@ const panels = {
     heading: "See how your orders are packed",
     blurb: "Our dashboard offers insights into your or your 3PL's operations, allowing you to upload chargebacks. That data tailors your packing process with extra validation checks.",
     cards: [
-      { i: "A", t: "Operations Dashboard", d: "Insights into your own or your 3PL's operations" },
-      { i: "B", t: "Chargeback Uploads", d: "Upload the chargebacks you receive from retailers" },
-      { i: "C", t: "Tailored Validation", d: "Your chargeback data adds extra validation checks to packing" },
-      { i: "D", t: "Order Photos", d: "A visual record of every order for dispute resolution" },
+      { Icon: LayoutDashboard, t: "Operations Dashboard", d: "Insights into your own or your 3PL's operations" },
+      { Icon: FileUp, t: "Chargeback Uploads", d: "Upload the chargebacks you receive from retailers" },
+      { Icon: ShieldCheck, t: "Tailored Validation", d: "Your chargeback data adds extra validation checks to packing" },
+      { Icon: Camera, t: "Order Photos", d: "A visual record of every order for dispute resolution" },
     ],
   },
   retailers: {
@@ -38,10 +39,10 @@ const panels = {
     heading: "Catch vendor errors at the dock",
     blurb: "Our retailer mobile app automatically detects and records shipping compliance errors from vendors, speeding up revenue generation and increasing labor efficiency.",
     cards: [
-      { i: "A", t: "Error Detection", d: "Automatically detects shipping compliance errors from vendors" },
-      { i: "B", t: "Automatic Records", d: "Every error recorded for you, no more spreadsheets" },
-      { i: "C", t: "Faster Revenue", d: "Speeds up revenue generation on inbound shipments" },
-      { i: "D", t: "Labor Efficiency", d: "Non-compliant orders take 2X the labor. Catch them early." },
+      { Icon: ScanSearch, t: "Error Detection", d: "Automatically detects shipping compliance errors from vendors" },
+      { Icon: ClipboardList, t: "Automatic Records", d: "Every error recorded for you, no more spreadsheets" },
+      { Icon: TrendingUp, t: "Faster Revenue", d: "Speeds up revenue generation on inbound shipments" },
+      { Icon: Timer, t: "Labor Efficiency", d: "Non-compliant orders take 2X the labor. Catch them early." },
     ],
   },
 };
@@ -156,7 +157,9 @@ export function Stakeholders() {
           <div ref={cardsRef} className="grid gap-3 min-[900px]:grid-cols-2">
             {panel.cards.map((k) => (
               <div key={k.t} style={{ display: "flex", flexDirection: "column", gap: "clamp(6px, 1.2vh, 28px)", padding: "clamp(14px, 2.2vh, 20px)", borderRadius: 18, background: "#FFFFFF", border: "1px solid var(--border)" }}>
-                <span style={{ ...mono, fontSize: 12, color: "var(--muted)" }}>{k.i}</span>
+                <span style={{ display: "grid", placeItems: "center", width: 36, height: 36, borderRadius: 10, background: "var(--background)", border: "1px solid var(--border)", color: "#141414" }}>
+                  <k.Icon size={18} strokeWidth={1.6} aria-hidden="true" />
+                </span>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <span style={{ fontSize: "clamp(16px, 2.6vh, 18px)", fontWeight: 500, letterSpacing: "-0.02em" }}>{k.t}</span>
                   <span className="card-desc" style={{ fontSize: 15, lineHeight: 1.5, color: "var(--body)" }}>{k.d}</span>

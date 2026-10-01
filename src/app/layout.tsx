@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "box-journey",
-  description: "Concept homepage redesign with a scroll-driven box journey.",
+  title: "RetailReady",
+  description: "Retail compliance, handled. Concept redesign of the RetailReady site.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
