@@ -64,7 +64,7 @@ export function BoxIllustration() {
   );
 
   return (
-    <div ref={root} className="hero-anim" style={{ position: "relative", width: "100%", height: "clamp(260px, 50vh, 420px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div ref={root} className="hero-anim h-[clamp(190px,30svh,300px)] sm:h-[clamp(260px,50vh,420px)]" style={{ position: "relative", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div aria-hidden="true" style={gridBg(25, 70)} />
       <div className="hb-card hb-hide flex max-sm:hidden" style={{ ...card, left: 0, top: "3%", transform: "rotate(-3deg)", gap: 6, padding: "14px 18px" }}>
         <span style={cardLabel}>Walmart&apos;s routing guide</span>
@@ -73,14 +73,14 @@ export function BoxIllustration() {
       </div>
 
       <svg
-        className="hb-svg hb-hide"
+        className="hb-svg hb-hide w-[min(26svh,220px,60vw)] sm:w-[min(38vh,320px,80vw)]"
         width={280}
         height={252}
         viewBox="0 0 400 360"
         fill="none"
         role="img"
         aria-label="A cardboard box with its shipping label placed on it"
-        style={{ position: "relative", width: "min(38vh, 320px, 80vw)", height: "auto" }}
+        style={{ position: "relative", height: "auto" }}
       >
         <ellipse cx="200" cy="344" rx="150" ry="12" fill="#141414" fillOpacity="0.07" />
         <Box />
