@@ -1,6 +1,7 @@
 "use client";
 
 import gsap from "gsap";
+import Image from "next/image";
 import { useRef, type CSSProperties } from "react";
 import { JoinBanner } from "@/components/JoinBanner";
 import { TEAM } from "@/data/team";
@@ -14,7 +15,7 @@ const founders = [
   {
     name: "Elle Smyth",
     role: "Co-Founder/CEO",
-    initials: "ES",
+    photo: "/about/elle.jpg",
     bio: [
       "A Duke Engineering graduate, Elle's journey through BlackRock and later as a Product Leader at Stord showcases her blend of corporate expertise and startup innovation. While at Stord, she played a key role in product development during its rise to unicorn status.",
       "Elle's vision for RetailReady centers on transforming reactive compliance into proactive solutions, developing guided workflows that streamline operations for brands, 3PLs, and retailers alike.",
@@ -23,7 +24,7 @@ const founders = [
   {
     name: "Sarah Hamer",
     role: "Co-Founder/COO",
-    initials: "SH",
+    photo: "/about/sarah.jpg",
     bio: [
       "A Georgia Tech Industrial Engineering graduate, Sarah began her journey at Microsoft before becoming a Strategy Associate to the CTO at Stord. Her expertise in supply chain software solutions and passion for practical innovation drives RetailReady's technical vision.",
       "Sarah loves transforming retail compliance through AI-powered solutions, focusing on eliminating manual processes and introducing new standards of efficiency in the industry.",
@@ -32,9 +33,9 @@ const founders = [
 ];
 
 const press = [
-  { outlet: "TechCrunch", headline: "YC grad RetailReady raises $3.3M for AI warehouse app", href: "https://techcrunch.com/2024/06/12/yc-retailready-warehouse-shipping/" },
-  { outlet: "Forbes", headline: "30 Under 30, Transportation & Mobility 2025", href: "https://www.forbes.com/profile/retailready/" },
-  { outlet: "Y Combinator", headline: "W24 Batch Company", href: "https://www.ycombinator.com/companies/retailready" },
+  { outlet: "TechCrunch", logo: "/about/techcrunch.png", headline: "YC grad RetailReady raises $3.3M for AI warehouse app", href: "https://techcrunch.com/2024/06/12/yc-retailready-warehouse-shipping/" },
+  { outlet: "Forbes", logo: "/about/forbes.png", headline: "30 Under 30, Transportation & Mobility 2025", href: "https://www.forbes.com/profile/retailready/" },
+  { outlet: "Y Combinator", logo: "/about/yc.png", headline: "W24 Batch Company", href: "https://www.ycombinator.com/companies/retailready" },
 ];
 
 function ArrowIcon() {
@@ -45,10 +46,10 @@ function ArrowIcon() {
   );
 }
 
-function Avatar({ initials, compact = false }: { initials: string; compact?: boolean }) {
+function Avatar({ name, photo, compact = false }: { name: string; photo: string; compact?: boolean }) {
   return (
-    <div style={{ aspectRatio: "1", display: "grid", placeItems: "center", borderRadius: compact ? 14 : 18, background: "#ECE8E2", color: "#B5B0A8", fontSize: compact ? "clamp(36px, 5vw, 54px)" : "clamp(52px, 8vw, 88px)", fontWeight: 500, letterSpacing: "-0.05em" }}>
-      {initials}
+    <div style={{ position: "relative", aspectRatio: "1", overflow: "hidden", borderRadius: compact ? 14 : 18, background: "#ECE8E2" }}>
+      <Image src={photo} alt={name} fill sizes={compact ? "(min-width: 1024px) 240px, (min-width: 640px) 33vw, 50vw" : "(min-width: 768px) 560px, 100vw"} style={{ objectFit: "cover", objectPosition: "50% 25%" }} />
     </div>
   );
 }
@@ -72,7 +73,7 @@ export function AboutPage() {
 
   return (
     <main>
-      <section style={{ ...container, padding: "clamp(96px, 15vw, 184px) 24px clamp(96px, 13vw, 152px)", textAlign: "center" }}>
+      <section className="screen" style={{ ...container, padding: "clamp(56px, 10vh, 112px) 24px", textAlign: "center" }}>
         <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
           <h1 style={{ maxWidth: 960, margin: 0, fontSize: "clamp(44px, 7vw, 80px)", lineHeight: 0.98, fontWeight: 500, letterSpacing: "-0.055em", textWrap: "balance" }}>
             Building the future of retail operations
@@ -86,20 +87,23 @@ export function AboutPage() {
         </Reveal>
       </section>
 
-      <section style={{ ...container, padding: sectionPad }}>
-        <Reveal style={{ marginBottom: 36, display: "flex", flexDirection: "column", gap: 12 }}>
+      <section className="screen" style={{ ...container, padding: "clamp(32px, 6vh, 72px) 24px", marginBottom: "clamp(56px, 8vw, 96px)" }}>
+        <Reveal style={{ marginBottom: "clamp(20px, 3.5vh, 36px)", display: "flex", flexDirection: "column", gap: 12 }}>
           <span style={eyebrow}>Our story</span>
-          <h2 style={h2}>Our Story</h2>
+          <h2 style={{ ...h2, fontSize: "clamp(34px, min(5vw, 7vh), 56px)" }}>Our Story</h2>
         </Reveal>
-        <Reveal className="grid gap-6 md:grid-cols-2 md:gap-12" style={{ alignItems: "start" }}>
-          <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(18px, 2vw, 20px)", lineHeight: 1.6, color: "var(--body)", textWrap: "pretty" }}>
-            RetailReady was born from a simple observation: retail compliance shouldn&apos;t cost brands billions. Founded by industry veterans who met while working at supply chain unicorn Stord, Elle and Sarah bonded over their shared passion for solving complex supply chain challenges.
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(18px, 2vw, 20px)", lineHeight: 1.6, color: "var(--body)", textWrap: "pretty" }}>
+        <Reveal className="grid gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-12" style={{ alignItems: "center" }}>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl md:aspect-auto md:h-[clamp(320px,calc(100svh-320px),600px)]">
+            <Image src="/about/our-story.png" alt="RetailReady founders Elle Smyth and Sarah Hamer visiting a warehouse" fill sizes="(min-width: 768px) 42vw, 100vw" style={{ objectFit: "cover" }} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "clamp(14px, 2.4vh, 24px)" }}>
+            <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(16px, min(2vw, 2.5vh), 20px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
+              RetailReady was born from a simple observation: retail compliance shouldn&apos;t cost brands billions. Founded by industry veterans who met while working at supply chain unicorn Stord, Elle and Sarah bonded over their shared passion for solving complex supply chain challenges.
+            </p>
+            <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(16px, min(2vw, 2.5vh), 20px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
               In 2024, after being accepted into Y Combinator&apos;s Winter batch, the journey began to transform how retail compliance is managed. Brands were losing an average of 3% of their revenue due to compliance chargebacks from incorrect shipping practices, contributing to a $40 billion industry problem.
             </p>
-            <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(18px, 2vw, 20px)", lineHeight: 1.6, color: "var(--body)", textWrap: "pretty" }}>
+            <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(16px, min(2vw, 2.5vh), 20px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
               Today, we&apos;re building an AI-powered platform that replaces manual warehouse processes with intelligent, digital solutions. Our technology combines large language models and computer vision to ensure proper shipping compliance, helping brands save money and focus on what matters most: growing their business.
             </p>
           </div>
@@ -116,7 +120,7 @@ export function AboutPage() {
           {founders.map((founder) => (
             <Reveal key={founder.name} style={{ height: "100%" }}>
               <article style={{ height: "100%", boxSizing: "border-box", padding: "clamp(16px, 3vw, 28px)", display: "flex", flexDirection: "column", gap: 22, border: "1px solid #E6E2DC", borderRadius: 24, background: "var(--surface)" }}>
-                <Avatar initials={founder.initials} />
+                <Avatar name={founder.name} photo={founder.photo} />
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   <h3 style={{ margin: 0, fontSize: 24, fontWeight: 500, letterSpacing: "-0.025em" }}>{founder.name}</h3>
                   <span style={{ ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "#6E6A64" }}>{founder.role}</span>
@@ -131,10 +135,10 @@ export function AboutPage() {
           ))}
         </div>
 
-        <div ref={teamGrid} className="grid grid-cols-[repeat(auto-fit,minmax(min(180px,100%),1fr))] gap-3">
+        <div ref={teamGrid} className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {TEAM.map((member) => (
             <article key={member.name} style={{ padding: 12, display: "flex", flexDirection: "column", gap: 14, border: "1px solid var(--border)", borderRadius: 16, background: "var(--surface)" }}>
-              <Avatar initials={member.initials} compact />
+              <Avatar name={member.name} photo={member.photo} compact />
               <div style={{ padding: "0 4px 5px", display: "flex", flexDirection: "column", gap: 3 }}>
                 <h3 style={{ margin: 0, fontSize: 17, fontWeight: 500, letterSpacing: "-0.015em" }}>{member.name}</h3>
                 <span style={{ fontSize: 14, lineHeight: 1.4, color: "#5E5A54" }}>{member.role}</span>
@@ -153,7 +157,12 @@ export function AboutPage() {
           {press.map((item) => (
             <a key={item.outlet} href={item.href} target="_blank" rel="noreferrer" className="press-card" style={{ minHeight: 220, boxSizing: "border-box", padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 32, border: "1px solid var(--border)", borderRadius: 16, background: "var(--surface)", color: "var(--text)", textDecoration: "none" }}>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
-                <span style={{ ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" }}>{item.outlet}</span>
+                <span style={{ display: "flex", alignItems: "center", gap: 10, ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" }}>
+                  <span style={{ position: "relative", width: 32, height: 32, flexShrink: 0, overflow: "hidden", borderRadius: 8 }}>
+                    <Image src={item.logo} alt="" fill sizes="32px" style={{ objectFit: "cover" }} />
+                  </span>
+                  {item.outlet}
+                </span>
                 <ArrowIcon />
               </div>
               <h3 style={{ margin: 0, fontSize: 20, lineHeight: 1.25, fontWeight: 500, letterSpacing: "-0.02em", textWrap: "balance" }}>{item.headline}</h3>
