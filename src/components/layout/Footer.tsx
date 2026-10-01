@@ -1,7 +1,12 @@
 import { Logo } from "@/components/illustrations/Logo";
-import { container, mono } from "@/lib/styles";
+import { CAREERS_URL, container, mono } from "@/lib/styles";
 
-const links = ["Privacy", "Terms", "Roundup", "Careers"];
+const links = [
+  { label: "Privacy", href: "#" },
+  { label: "Terms", href: "#" },
+  { label: "Roundup", href: "#" },
+  { label: "Careers", href: CAREERS_URL },
+];
 const meta = { ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)" } as const;
 
 export function Footer() {
@@ -14,7 +19,7 @@ export function Footer() {
             <span>RetailReady</span>
           </a>
           {links.map((l) => (
-            <a key={l} href="#" style={{ color: "var(--body)", textDecoration: "none" }}>{l}</a>
+            <a key={l.label} href={l.href} {...(l.href.startsWith("http") && { target: "_blank", rel: "noreferrer" })} style={{ color: "var(--body)", textDecoration: "none" }}>{l.label}</a>
           ))}
         </div>
         <a href="#" aria-label="RetailReady on LinkedIn" style={{ width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 10, border: "1px solid var(--grid)" }}>

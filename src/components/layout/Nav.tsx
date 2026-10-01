@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/illustrations/Logo";
-import { CAL_URL, container, mono } from "@/lib/styles";
+import { CAL_URL, CAREERS_URL, container, mono } from "@/lib/styles";
+
+const external = (href: string) => (href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {});
 
 const menus = [
   {
@@ -27,7 +29,7 @@ const menus = [
     links: [
       { label: "About", href: "/about" },
       { label: "Roundup", href: "#" },
-      { label: "Careers", href: "#" },
+      { label: "Careers", href: CAREERS_URL },
     ],
   },
 ];
@@ -124,6 +126,7 @@ export function Nav() {
                         <Link
                           key={l.label}
                           href={l.href}
+                          {...external(l.href)}
                           aria-current={linkActive ? "page" : undefined}
                           onClick={() => setOpenMenu(null)}
                           className="text-[#5E5A54] hover:bg-[#F6F4F1] hover:text-[#141414]"
@@ -165,7 +168,7 @@ export function Nav() {
               <div key={m.label} style={{ display: "flex", flexDirection: "column" }}>
                 <span style={{ ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", padding: "8px 0" }}>{m.label}</span>
                 {m.links.map((l) => (
-                  <Link key={l.label} href={l.href} aria-current={l.href.startsWith("/") && pathname === l.href ? "page" : undefined} onClick={() => setMobileOpen(false)} style={{ padding: "10px 0", fontSize: 18, fontWeight: l.href.startsWith("/") && pathname === l.href ? 600 : undefined, textDecoration: "none" }}>
+                  <Link key={l.label} href={l.href} {...external(l.href)} aria-current={l.href.startsWith("/") && pathname === l.href ? "page" : undefined} onClick={() => setMobileOpen(false)} style={{ padding: "10px 0", fontSize: 18, fontWeight: l.href.startsWith("/") && pathname === l.href ? 600 : undefined, textDecoration: "none" }}>
                     {l.label}
                   </Link>
                 ))}

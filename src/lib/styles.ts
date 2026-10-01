@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 export const CAL_URL = "https://cal.com/team/retailready/retailready-intro-meeting";
+export const CAREERS_URL = "https://www.ycombinator.com/companies/retailready/jobs";
 
 export const mono: CSSProperties = { fontFamily: "var(--font-mono)" };
 

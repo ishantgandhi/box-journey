@@ -3,12 +3,14 @@
 import gsap from "gsap";
 import Image from "next/image";
 import { useRef, type CSSProperties } from "react";
+import { AboutHeroBoxes } from "@/components/AboutHeroBoxes";
 import { JoinBanner } from "@/components/JoinBanner";
 import { TEAM } from "@/data/team";
 import { Reveal, playOnceInView, useMotion } from "@/lib/motion";
-import { container, eyebrow, mono } from "@/lib/styles";
+import { container, eyebrow, gridBg, mono } from "@/lib/styles";
 
 const sectionPad = "0 24px clamp(88px, 11vw, 136px)";
+const strong: CSSProperties = { fontWeight: 600, color: "var(--text)" };
 const h2: CSSProperties = { margin: 0, fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.04, fontWeight: 500, letterSpacing: "-0.045em", textWrap: "balance" };
 
 const founders = [
@@ -73,8 +75,10 @@ export function AboutPage() {
 
   return (
     <main>
-      <section className="screen" style={{ ...container, padding: "clamp(56px, 10vh, 112px) 24px", textAlign: "center" }}>
-        <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+      <section className="screen" style={{ ...container, position: "relative", padding: "clamp(56px, 10vh, 112px) 24px", textAlign: "center" }}>
+        <div aria-hidden="true" style={gridBg(20, 68)} />
+        <AboutHeroBoxes />
+        <Reveal style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
           <h1 style={{ maxWidth: 960, margin: 0, fontSize: "clamp(44px, 7vw, 80px)", lineHeight: 0.98, fontWeight: 500, letterSpacing: "-0.055em", textWrap: "balance" }}>
             Building the future of retail operations
           </h1>
@@ -92,19 +96,19 @@ export function AboutPage() {
           <span style={eyebrow}>Our story</span>
           <h2 style={{ ...h2, fontSize: "clamp(34px, min(5vw, 7vh), 56px)" }}>Our Story</h2>
         </Reveal>
-        <Reveal className="grid gap-8 md:grid-cols-[0.85fr_1.15fr] md:gap-12" style={{ alignItems: "center" }}>
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl md:aspect-auto md:h-[clamp(320px,calc(100svh-320px),600px)]">
+        <Reveal className="grid grid-cols-1 gap-8 md:grid-cols-[auto_minmax(0,1fr)] md:gap-12" style={{ alignItems: "center" }}>
+          <div className="relative mx-auto aspect-[558/875] w-full max-w-[420px] overflow-hidden rounded-3xl md:h-[clamp(320px,calc(100svh-320px),600px)] md:w-auto md:max-w-none">
             <Image src="/about/our-story.png" alt="RetailReady founders Elle Smyth and Sarah Hamer visiting a warehouse" fill sizes="(min-width: 768px) 42vw, 100vw" style={{ objectFit: "cover" }} />
           </div>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "clamp(14px, 2.4vh, 24px)" }}>
             <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(16px, min(2vw, 2.5vh), 20px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
-              RetailReady was born from a simple observation: retail compliance shouldn&apos;t cost brands billions. Founded by industry veterans who met while working at supply chain unicorn Stord, Elle and Sarah bonded over their shared passion for solving complex supply chain challenges.
+              RetailReady was born from a simple observation: <strong style={strong}>retail compliance shouldn&apos;t cost brands billions.</strong> Founded by industry veterans who met while working at <strong style={strong}>supply chain unicorn Stord</strong>, Elle and Sarah bonded over their shared passion for solving complex supply chain challenges.
             </p>
             <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(16px, min(2vw, 2.5vh), 20px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
-              In 2024, after being accepted into Y Combinator&apos;s Winter batch, the journey began to transform how retail compliance is managed. Brands were losing an average of 3% of their revenue due to compliance chargebacks from incorrect shipping practices, contributing to a $40 billion industry problem.
+              In 2024, after being accepted into <strong style={strong}>Y Combinator&apos;s Winter batch</strong>, the journey began to transform how retail compliance is managed. Brands were losing <strong style={strong}>an average of 3% of their revenue</strong> due to compliance chargebacks from incorrect shipping practices, contributing to a <strong style={strong}>$40 billion industry problem.</strong>
             </p>
             <p style={{ maxWidth: "68ch", margin: 0, fontSize: "clamp(16px, min(2vw, 2.5vh), 20px)", lineHeight: 1.55, color: "var(--body)", textWrap: "pretty" }}>
-              Today, we&apos;re building an AI-powered platform that replaces manual warehouse processes with intelligent, digital solutions. Our technology combines large language models and computer vision to ensure proper shipping compliance, helping brands save money and focus on what matters most: growing their business.
+              Today, we&apos;re building <strong style={strong}>an AI-powered platform that replaces manual warehouse processes</strong> with intelligent, digital solutions. Our technology combines <strong style={strong}>large language models and computer vision</strong> to ensure proper shipping compliance, helping brands save money and focus on what matters most: <strong style={strong}>growing their business.</strong>
             </p>
           </div>
         </Reveal>
