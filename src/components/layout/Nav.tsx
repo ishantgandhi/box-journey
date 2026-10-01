@@ -74,6 +74,18 @@ export function Nav() {
     };
   }, [openMenu, mobileOpen]);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const root = document.documentElement;
+    root.style.overflow = "hidden";
+    const onResize = () => matchMedia("(min-width: 900px)").matches && setMobileOpen(false);
+    addEventListener("resize", onResize);
+    return () => {
+      root.style.overflow = "";
+      removeEventListener("resize", onResize);
+    };
+  }, [mobileOpen]);
+
   return (
     <header
       ref={headerRef}
@@ -82,7 +94,9 @@ export function Nav() {
         top: 0,
         zIndex: 50,
         // Transparent at the top; frosted with a border once scrolled past 40px
-        ...(scrolled || mobileOpen
+        ...(mobileOpen
+          ? { background: "var(--background)", borderBottom: "1px solid var(--grid)" }
+          : scrolled
           ? { background: "rgba(246, 244, 241, 0.85)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderBottom: "1px solid var(--grid)" }
           : { background: "rgba(246, 244, 241, 0)", backdropFilter: "blur(0px)", WebkitBackdropFilter: "blur(0px)", borderBottom: "1px solid transparent" }),
         transition: "background-color 200ms, border-color 200ms, backdrop-filter 200ms, -webkit-backdrop-filter 200ms",
@@ -162,19 +176,38 @@ export function Nav() {
       </div>
 
       {mobileOpen && (
-        <div id="mobile-menu" className="min-[900px]:hidden" style={{ position: "absolute", top: "100%", left: 0, right: 0, maxHeight: "calc(100dvh - 64px)", overflowY: "auto", background: "var(--background)", borderBottom: "1px solid var(--grid)" }}>
-          <nav aria-label="Main" style={{ ...container, padding: "8px 24px 24px", display: "flex", flexDirection: "column", gap: 20 }}>
-            {menus.map((m) => (
-              <div key={m.label} style={{ display: "flex", flexDirection: "column" }}>
-                <span style={{ ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", padding: "8px 0" }}>{m.label}</span>
-                {m.links.map((l) => (
-                  <Link key={l.label} href={l.href} {...external(l.href)} aria-current={l.href.startsWith("/") && pathname === l.href ? "page" : undefined} onClick={() => setMobileOpen(false)} style={{ padding: "10px 0", fontSize: 18, fontWeight: l.href.startsWith("/") && pathname === l.href ? 600 : undefined, textDecoration: "none" }}>
-                    {l.label}
-                  </Link>
-                ))}
+        <div id="mobile-menu" className="min-[900px]:hidden" style={{ position: "absolute", top: "100%", left: 0, right: 0, height: "calc(100dvh - 64px)", display: "flex", flexDirection: "column", overflowY: "auto", overscrollBehavior: "contain", background: "var(--background)" }}>
+          <nav aria-label="Main" style={{ ...container, width: "100%", flex: 1, padding: "12px 16px 32px", display: "flex", flexDirection: "column", gap: 28 }}>
+            {menus.map((m, mi) => (
+              <div key={m.label} className="fade-up" style={{ display: "flex", flexDirection: "column", animationDelay: `${mi * 50}ms` }}>
+                <span style={{ ...mono, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--muted)", paddingBottom: 4 }}>{m.label}</span>
+                {m.links.map((l) => {
+                  const linkActive = l.href.startsWith("/") && pathname === l.href;
+                  return (
+                    <Link
+                      key={l.label}
+                      href={l.href}
+                      {...external(l.href)}
+                      aria-current={linkActive ? "page" : undefined}
+                      onClick={() => setMobileOpen(false)}
+                      style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "13px 0", borderBottom: "1px solid var(--grid)", fontSize: 26, lineHeight: 1.2, fontWeight: 500, letterSpacing: "-0.03em", color: linkActive ? "#141414" : "#3A3733", textDecoration: "none" }}
+                    >
+                      <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        {l.label}
+                        {linkActive && <span aria-hidden="true" style={{ width: 6, height: 6, borderRadius: 3, background: "#C9A574" }} />}
+                      </span>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d={l.href.startsWith("http") ? "M5 11l6-6M6 5h5v5" : "M3 8h10M9 4l4 4-4 4"} stroke="var(--muted)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </Link>
+                  );
+                })}
               </div>
             ))}
           </nav>
+          <div className="fade-up" style={{ ...container, width: "100%", padding: "0 16px calc(16px + env(safe-area-inset-bottom))", animationDelay: "150ms" }}>
+            <a href={CAL_URL} className="btn" style={{ ...cta, width: "100%", height: 52, justifyContent: "center", fontSize: 14 }}>Try our platform</a>
+          </div>
         </div>
       )}
     </header>
