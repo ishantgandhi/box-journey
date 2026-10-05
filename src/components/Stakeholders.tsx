@@ -123,13 +123,13 @@ export function Stakeholders() {
       </div>
 
       <div id="stakeholder-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} className="grid gap-10 min-[900px]:grid-cols-2 min-[900px]:gap-12">
-        {/* Stretches to the height of the text column on desktop */}
+        {/* Stretches to the height of the text column on desktop; the 4:3 frame is centered inside */}
         <div style={{ display: "flex", flexDirection: "column", padding: 20, borderRadius: 24, background: "var(--line)" }}>
           <span key={tab} className="fade-up" style={{ display: "block", marginBottom: 14, ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--muted)" }}>
             {panel.shot.label}
           </span>
           {/* All three stay mounted so they load up front and crossfade without a flash */}
-          <div className="aspect-[16/10] min-[900px]:aspect-auto min-[900px]:flex-1" style={{ position: "relative", borderRadius: 12, border: "1px solid var(--grid)", overflow: "hidden", background: "#FFFFFF", boxShadow: "0 20px 50px rgba(20,20,20,0.10)" }}>
+          <div className="aspect-[4/3] min-[900px]:my-auto" style={{ position: "relative", borderRadius: 12, border: "1px solid var(--grid)", overflow: "hidden", background: "#FFFFFF", boxShadow: "0 20px 50px rgba(20,20,20,0.10)" }}>
             {keys.map((key) => {
               const active = key === tab;
               return (
@@ -142,7 +142,7 @@ export function Stakeholders() {
                   height={panels[key].shot.h}
                   sizes="(min-width: 1200px) 690px, (min-width: 900px) 58vw, 100vw"
                   className="transition-[opacity,transform] duration-[250ms] ease-out motion-reduce:transition-none"
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", opacity: active ? 1 : 0, transform: active ? "none" : "translateY(8px)" }}
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", objectPosition: "top", opacity: active ? 1 : 0, transform: active ? "none" : "translateY(8px)" }}
                 />
               );
             })}
