@@ -13,10 +13,12 @@ export function Hero() {
       <div style={{ ...container, flex: 1, display: "flex", alignItems: "center", padding: `${padY} 24px 0` }}>
         <div className="grid w-full items-center gap-3 sm:gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <FlowsLink className="pill-link" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 12, background: "transparent", ...mono, fontSize: 12, textDecoration: "none" }}>
-              <span>{TOTAL_FLOWS} retail flows built</span>
-              <span style={{ padding: "5px 10px", borderRadius: 8, background: "#141414", color: "#FFFFFF" }}>See them</span>
-            </FlowsLink>
+            <div className="hero-chip hb-hide flex">
+              <FlowsLink className="pill-link" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "5px 5px 5px 14px", border: "1px solid #E2DED8", borderRadius: 12, background: "transparent", ...mono, fontSize: 12, textDecoration: "none" }}>
+                <span>{TOTAL_FLOWS} retail flows built</span>
+                <span style={{ padding: "5px 10px", borderRadius: 8, background: "#141414", color: "#FFFFFF" }}>See them</span>
+              </FlowsLink>
+            </div>
             <h1 style={{ margin: "clamp(24px, 4.4vh, 38px) 0 0", fontSize: "clamp(36px, min(5vw, 8vh), 72px)", lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.05em", textWrap: "balance" }}>
               <span className="hero-mark"><Logo size={48} stroke="#141414" />RetailReady</span> is the future of supply chain compliance.
             </h1>

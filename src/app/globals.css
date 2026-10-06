@@ -167,3 +167,9 @@ body {
 }
 .how-desc { display: grid; }
 .how-desc > span { overflow: hidden; min-height: 0; }
+
+/* Hero entrance: the box, its cards and the top chip start hidden and drop in from above (see BoxIllustration).
+   Reduced motion skips this and shows the final state. */
+@media (prefers-reduced-motion: no-preference) {
+  .hb-hide { opacity: 0; }
+}
