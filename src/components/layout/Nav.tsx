@@ -50,12 +50,21 @@ export function Nav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const progress = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.current!.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -102,6 +111,8 @@ export function Nav() {
         transition: "background-color 200ms, border-color 200ms, backdrop-filter 200ms, -webkit-backdrop-filter 200ms",
       }}
     >
+      {/* Reading progress, drawn over the header's bottom border */}
+      <span ref={progress} aria-hidden="true" className="scroll-progress" style={{ position: "absolute", left: 0, right: 0, bottom: -1, height: 2, background: "#141414", transformOrigin: "left", transform: "scaleX(0)" }} />
       <div className="gap-3 px-4 min-[900px]:gap-6 min-[900px]:px-6" style={{ ...container, height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, color: "#141414", textDecoration: "none" }}>
           <Logo size={22} stroke="#141414" />
@@ -132,7 +143,7 @@ export function Nav() {
                   <Chevron open={open} />
                 </button>
                 {open && (
-                  <div id={id} style={{ position: "absolute", top: "100%", left: 0, paddingTop: 6 }}>
+                  <div id={id} className="menu-pop" style={{ position: "absolute", top: "100%", left: 0, paddingTop: 6 }}>
                     <div style={{ minWidth: 200, padding: 6, display: "flex", flexDirection: "column", background: "#FFFFFF", border: "1px solid var(--border)", borderRadius: 14, boxShadow: "0 14px 30px rgba(20,20,20,0.08)" }}>
                       {m.links.map((l) => {
                         const linkActive = l.href.startsWith("/") && pathname === l.href;

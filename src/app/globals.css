@@ -173,3 +173,11 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .hb-hide { opacity: 0; }
 }
+
+/* Nav: dropdowns fade and drop 6px on open; the reading-progress bar is hidden for reduced motion */
+@keyframes menu-pop { from { opacity: 0; transform: translateY(-6px); } }
+.menu-pop { animation: menu-pop 160ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .menu-pop { animation: none; }
+  .scroll-progress { display: none; }
+}
